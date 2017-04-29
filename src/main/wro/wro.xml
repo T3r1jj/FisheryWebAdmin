@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+    <group name="angular-bootstrap">
+        <css>webjar:angular-material/@angular-material.version@/angular-material.min.css</css>   
+        <css>file:${project.basedir}/src/main/wro/main.less</css>
+        <js>webjar:angularjs/@angularjs.version@/angular.min.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-route.min.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-cookies.min.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-animate.min.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-aria.min.js</js>
+        <js>webjar:angular-material/@angular-material.version@/angular-material.min.js</js>
+    </group>
+</groups>
