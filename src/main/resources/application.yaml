@@ -1,0 +1,24 @@
+google:
+  client:
+    clientId: 126792298774-cj50rc1p9tjt3msebckhmhjk9uasgaud.apps.googleusercontent.com
+    clientSecret: 91M7AX4xoCwAOoaHih7AaNQh
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope:
+      - email
+      - profile
+  resource:
+    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+github:
+  client:
+    clientId: 30d6c89c44f9ed8f2dd1
+    clientSecret: 6927436aec736e0d29518865d4ce164d5f416502
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+    scope:
+      - user:email
+  resource:
+    userInfoUri: https://api.github.com/user
