@@ -1,0 +1,48 @@
+<md-dialog add-item-dialog>
+    <md-dialog-content class="md-dialog-content">
+
+        <h2 class="md-title">Add Fishery</h2>
+
+        <p ng-if="item.form.$submitted && item.form.$invalid" class="md-warn" layout="row" layout-align="start center">
+            <i class="material-icons">error_outline</i>
+            <span>&nbsp; All fields are required.</span>
+        </p>
+
+        <form name="item.form" ng-submit="ctrl.addItem()">
+            <div layout="row" class="input-row">
+                <md-input-container flex>
+                    <label>Name</label>
+                    <input name="name" ng-model="fishery.name" md-maxlength="20" required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Lat</label>
+                    <input name="lat" type="number" ng-model="fishery.lat" required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Lng</label>
+                    <input name="lng" type="number" ng-model="fishery.lng" required>
+                </md-input-container>
+            </div>
+            <h3 class="md-subhead">Description</h3>
+            <div layout="row" class="input-row">
+                <md-input-container flex>
+                    <label>Text (optional)</label>
+                    <textarea name="name" ng-model="fishery.description" max-rows="3"></textarea>
+                </md-input-container>
+            </div>
+            <h3 class="md-subhead">Requirements</h3>
+            <div layout="row" class="input-row">
+                <md-input-container flex>
+                    <label>Text (optional)</label>
+                    <textarea name="name" ng-model="fishery.requirements" max-rows="3"></textarea>
+                </md-input-container>
+            </div>
+        </form>
+    </md-dialog-content>
+
+    <div class="md-actions">
+        <md-button class="md-primary" ng-click="ctrl.addItem()" ng-disabled="item.form.$invalid">Add Item</md-button>
+        <md-button class="md-primary" ng-click="ctrl.cancel()">Cancel</md-button>
+    </div>
+
+</md-dialog>
