@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoT
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -33,6 +34,9 @@ import java.util.List;
 @EnableOAuth2Client
 @RestController
 @EnableAutoConfiguration
+@ComponentScan(basePackageClasses = {
+        ViewController.class,
+})
 public class Application extends WebSecurityConfigurerAdapter {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -51,7 +55,7 @@ public class Application extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**", "/assets/**")
+                .antMatchers("/", "/login**", "/webjars/**", "/index.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
