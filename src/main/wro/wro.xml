@@ -7,6 +7,7 @@
     <group name="app">
         <group-ref>angular-bootstrap</group-ref>
         <group-ref>md-data-table</group-ref>
+        <js>/js/constants.js</js>
         <js>/js/app.js</js>
         <js>/js/controllers/dashboard.js</js>
         <js>/js/controllers/articles.js</js>

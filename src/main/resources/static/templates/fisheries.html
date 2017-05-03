@@ -11,10 +11,10 @@
     </div>
     <md-tabs md-stretch-tabs class="md-primary" md-selected="data.selectedIndex">
         <md-tab id="tab1" aria-controls="tab1-content">
-            Knowledge Base
+            Managed data
         </md-tab>
         <md-tab id="tab2" aria-controls="tab2-content">
-            Fishery Service
+            Knowledge Base
         </md-tab>
     </md-tabs>
 </md-toolbar>
@@ -29,97 +29,6 @@
                  ng-switch-when="0"
                  md-swipe-left="next()"
                  md-swipe-right="previous()"
-                 layout="column" layout-align="center center">
-                <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80"
-                     style="align-items: stretch">
-                    <md-card layout="row" flex>
-                        <md-card-content layout="row" style="padding-bottom: 0; align-items: stretch; flex: 1 1 auto">
-                            <md-input-container md-theme="search" style="margin-bottom: 0">
-                                <label>Country</label>
-                                <md-select ng-model="country.selected">
-                                    <md-option ng-repeat="country in countries" ng-value="country"
-                                               ng-bind="country.name">
-                                    </md-option>
-                                </md-select>
-                            </md-input-container>
-                            <md-input-container md-theme="search"
-                                                style="margin-bottom: 0; margin-left:16px; flex: 1 1 auto">
-                                <label>Search</label>
-                                <input flex ng-model="query.filter">
-                            </md-input-container>
-                            <md-button class="md-icon-button" ng-click="removeFilter()" style="align-self: center;">
-                                <md-icon ng-md-icon icon="close"></md-icon>
-                            </md-button>
-                        </md-card-content>
-                    </md-card>
-                    <md-card layout="row" flex>
-                        <md-card-content>
-                            <md-toolbar class="md-table-toolbar md-default"
-                                        ng-hide="options.rowSelection && selected.length">
-                                <div class="md-toolbar-tools">
-                                    <span>Fisheries</span>
-                                    <div flex></div>
-                                    <md-button class="md-icon-button" ng-click="loadStuff()">
-                                        <md-icon ng-md-icon icon="refresh" style="fill: #333"></md-icon>
-                                    </md-button>
-                                </div>
-                            </md-toolbar>
-
-                            <md-toolbar class="md-table-toolbar alternate"
-                                        ng-show="options.rowSelection && selected.length">
-                                <div class="md-toolbar-tools">
-                                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
-                                </div>
-                            </md-toolbar>
-
-                            <md-table-container>
-                                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
-                                       ng-model="selected" md-progress="promise">
-                                    <thead ng-if="!options.decapitate" md-head md-order="query.order"
-                                           md-on-reorder="logOrder">
-                                    <tr md-row>
-                                        <th md-column md-order-by="name"><span>Name</span></th>
-                                        <th md-column md-numeric md-order-by="coordinate.lat.value"><span>Lat</span>
-                                        </th>
-                                        <th md-column md-numeric md-order-by="coordinate.lng.value"><span>Lng</span>
-                                        </th>
-                                        <th md-column><span>Description</span>
-                                        </th>
-                                        <th md-column><span>Requirements</span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody md-body>
-                                    <tr md-row md-select="fishery" md-on-select="logItem"
-                                        md-auto-select="options.autoSelect"
-                                        ng-repeat="fishery in fisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                                        <td md-cell ng-bind="fishery.name"></td>
-                                        <td md-cell ng-bind="fishery.coordinate.lat"></td>
-                                        <td md-cell ng-bind="fishery.coordinate.lng"></td>
-                                        <td md-cell ng-bind="fishery.description"></td>
-                                        <td md-cell ng-bind="fishery.requirements"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </md-table-container>
-
-                            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
-                                                 md-total="{{fisheries.length}}" md-page-select="options.pageSelect"
-                                                 md-boundary-links="options.boundaryLinks"
-                                                 md-on-paginate="logPagination"></md-table-pagination>
-                        </md-card-content>
-                    </md-card>
-                </div>
-            </div>
-        </ng-switch>
-        <ng-switch on="data.selectedIndex" class="tabpanel-container">
-            <div role="tabpanel"
-                 id="tab2-content"
-                 aria-labelledby="tab2"
-                 ng-switch-when="1"
-                 md-swipe-left="next()"
-                 md-swipe-right="previous()"
                  layout="row" layout-align="center center">
                 <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80"
                      style="align-items: stretch">
@@ -130,19 +39,19 @@
                                 <label>Search</label>
                                 <input flex ng-model="query.filter">
                             </md-input-container>
-                            <md-button class="md-icon-button" ng-click="removeFilter()" style="align-self: center;">
+                            <md-button class="md-icon-button" ng-click="removeFilter()" style="align-self: center;"
+                                       aria-label="Remove search filter">
                                 <md-icon ng-md-icon icon="close"></md-icon>
                             </md-button>
                         </md-card-content>
                     </md-card>
                     <md-card layout="row" flex>
                         <md-card-content layout="column" style="align-items: stretch; flex: 1 1 auto">
-                            <md-toolbar class="md-table-toolbar md-default"
-                                        ng-hide="options.rowSelection && selected.length">
+                            <md-toolbar class="md-table-toolbar md-default">
                                 <div class="md-toolbar-tools">
                                     <span>Fisheries</span>
                                     <div flex></div>
-                                    <md-button class="md-icon-button" ng-click="loadStuff()">
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">
                                         <md-icon ng-md-icon icon="refresh" style="fill: #333"></md-icon>
                                     </md-button>
                                 </div>
@@ -196,22 +105,112 @@
                 </div>
             </div>
         </ng-switch>
+        <ng-switch on="data.selectedIndex" class="tabpanel-container">
+            <div role="tabpanel"
+                 id="tab2-content"
+                 aria-labelledby="tab2"
+                 ng-switch-when="1"
+                 md-swipe-left="next()"
+                 md-swipe-right="previous()"
+                 layout="row" layout-align="center center">
+                <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80"
+                     style="align-items: stretch">
+                    <md-card layout="row" flex>
+                        <md-card-content layout="row" style="padding-bottom: 0; align-items: stretch; flex: 1 1 auto">
+                            <md-input-container md-theme="search" style="margin-bottom: 0">
+                                <label>Country</label>
+                                <md-select ng-model="country.selected">
+                                    <md-option ng-repeat="country in countries" ng-value="country"
+                                               ng-bind="country.name">
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container md-theme="search"
+                                                style="margin-bottom: 0; margin-left:16px; flex: 1 1 auto">
+                                <label>Search</label>
+                                <input flex ng-model="query.filter">
+                            </md-input-container>
+                            <md-button class="md-icon-button" ng-click="removeFilter()" style="align-self: center;"
+                                       aria-label="Remove search filter">
+                                <md-icon ng-md-icon icon="close"></md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                    <md-card layout="row" flex>
+                        <md-card-content layout="column" style="align-items: stretch; flex: 1 1 auto">
+                            <md-toolbar class="md-table-toolbar md-default">
+                                <div class="md-toolbar-tools">
+                                    <span>Fisheries</span>
+                                    <div flex></div>
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">
+                                        <md-icon ng-md-icon icon="refresh" style="fill: #333"></md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
+
+                            <md-toolbar class="md-table-toolbar alternate"
+                                        ng-show="options.rowSelection && selected.length">
+                                <div class="md-toolbar-tools">
+                                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                                </div>
+                            </md-toolbar>
+
+                            <md-table-container>
+                                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
+                                       ng-model="selected" md-progress="promise">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order"
+                                           md-on-reorder="logOrder">
+                                    <tr md-row>
+                                        <th md-column md-order-by="name"><span>Name</span></th>
+                                        <th md-column md-numeric md-order-by="coordinate.lat.value"><span>Lat</span>
+                                        </th>
+                                        <th md-column md-numeric md-order-by="coordinate.lng.value"><span>Lng</span>
+                                        </th>
+                                        <th md-column><span>Description</span>
+                                        </th>
+                                        <th md-column><span>Requirements</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row md-select="fishery" md-on-select="logItem"
+                                        md-auto-select="options.autoSelect"
+                                        ng-repeat="fishery in fisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        <td md-cell ng-bind="fishery.name"></td>
+                                        <td md-cell ng-bind="fishery.coordinate.lat"></td>
+                                        <td md-cell ng-bind="fishery.coordinate.lng"></td>
+                                        <td md-cell ng-bind="fishery.description"></td>
+                                        <td md-cell ng-bind="fishery.requirements"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
+                                                 md-page="query.page"
+                                                 md-total="{{fisheries.length}}" md-page-select="options.pageSelect"
+                                                 md-boundary-links="options.boundaryLinks"
+                                                 md-on-paginate="logPagination"></md-table-pagination>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </div>
+        </ng-switch>
         <md-fab-speed-dial md-open="demo.isOpen" md-direction="up" class="md-fab-bottom-right"
                            ng-class="open">
-            <md-fab-trigger>
-                <md-button aria-label="menu" class="md-fab md-warn">
-                    <md-icon ng-md-icon icon="menu"></md-icon>
-                </md-button>
-            </md-fab-trigger>
-
             <md-fab-actions>
-                <md-button aria-label="Remove" class="md-fab md-raised md-mini">
+                <md-button aria-label="Delete" class="md-fab md-raised" ng-click="deleteItem($event)"
+                           ng-show="options.rowSelection && selected.length && !data.selectedIndex">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Delete</md-tooltip>
                     <md-icon ng-md-icon icon="remove_circle"></md-icon>
                 </md-button>
-                <md-button aria-label="Edit" class="md-fab md-raised md-mini">
+                <md-button aria-label="Update" class="md-fab md-raised" ng-click="updateItem($event)"
+                           ng-show="options.rowSelection && selected.length && !data.selectedIndex">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Update</md-tooltip>
                     <md-icon ng-md-icon icon="edit"></md-icon>
                 </md-button>
-                <md-button aria-label="Add" class="md-fab md-raised md-mini" ng-click="addItem($event)">
+                <md-button aria-label="Add" class="md-fab md-raised" ng-click="addItem($event)">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Add managed fishery</md-tooltip>
                     <md-icon ng-md-icon icon="add_circle"></md-icon>
                 </md-button>
             </md-fab-actions>

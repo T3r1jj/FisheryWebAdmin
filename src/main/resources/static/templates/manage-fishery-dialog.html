@@ -1,18 +1,18 @@
 <md-dialog add-item-dialog>
     <md-dialog-content class="md-dialog-content">
 
-        <h2 class="md-title">Add Fishery</h2>
+        <h2 class="md-title" ng-bind="operation"></h2>
 
         <p ng-if="item.form.$submitted && item.form.$invalid" class="md-warn" layout="row" layout-align="start center">
             <i class="material-icons">error_outline</i>
-            <span>&nbsp; All fields are required.</span>
+            <span>&nbsp; Please fill in required fields.</span>
         </p>
 
         <form name="item.form" ng-submit="ctrl.addItem()">
             <div layout="row" class="input-row">
                 <md-input-container flex>
                     <label>Name</label>
-                    <input name="name" ng-model="fishery.name" md-maxlength="20" required>
+                    <input name="name" ng-model="fishery.name" required>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Lat</label>
@@ -40,9 +40,9 @@
         </form>
     </md-dialog-content>
 
-    <div class="md-actions">
-        <md-button class="md-primary" ng-click="ctrl.addItem()" ng-disabled="item.form.$invalid">Add Item</md-button>
-        <md-button class="md-primary" ng-click="ctrl.cancel()">Cancel</md-button>
-    </div>
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="ctrl.manageItem()" ng-disabled="item.form.$invalid" ng-bind="operationConfirm" aria-label="Confirm"></md-button>
+        <md-button class="md-primary" ng-click="ctrl.cancel()" aria-label="Cancel">Cancel</md-button>
+    </md-dialog-actions>
 
 </md-dialog>
