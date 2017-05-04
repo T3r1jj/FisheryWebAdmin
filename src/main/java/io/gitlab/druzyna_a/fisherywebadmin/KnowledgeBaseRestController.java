@@ -31,7 +31,7 @@ public class KnowledgeBaseRestController {
     @Value("${io.gitlab.druzyna_a.knowledgebase.totp_hmac_algorithm}")
     private String totpHmacAlgorithm;
 
-    @RequestMapping(value = "/article", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/articlesRequests", method = RequestMethod.GET)
     public @ResponseBody
     String getArticlesRequests() {
         Map<String, String> args = new HashMap<>();

@@ -1,14 +1,7 @@
 /**
  * Created by Damian Terlecki on 02.05.17.
  */
-app.config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('search', 'default')
-        .primaryPalette('pink')
-});
-app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
-}]);
-app.factory('$service', ['$resource', function ($resource) {
+app.factory('$fisheryService', ['$resource', function ($resource) {
     'use strict';
     return {
         fisheries: $resource('https://fishery-knowledge-base.herokuapp.com/fishery'),
@@ -48,8 +41,8 @@ app.service('manageService', function () {
     };
 
 });
-app.controller('ManageFisheryController', ['$mdDialog', '$service', '$scope', '$mdToast', 'manageService',
-    function ($mdDialog, $service, $scope, $mdToast, manageService) {
+app.controller('ManageFisheryController', ['$mdDialog', '$fisheryService', '$scope', '$mdToast', 'manageService',
+    function ($mdDialog, $fisheryService, $scope, $mdToast, manageService) {
         'use strict';
 
         this.cancel = $mdDialog.cancel;
@@ -77,15 +70,15 @@ app.controller('ManageFisheryController', ['$mdDialog', '$service', '$scope', '$
 
             if ($scope.form.$valid) {
                 if (manageService.getOperation() === "Update") {
-                    $service.updateRsiFishery.put($scope.fishery, success, failure);
+                    $fisheryService.updateRsiFishery.put($scope.fishery, success, failure);
                 } else {
-                    $service.addRsiFishery.save($scope.fishery, success, failure);
+                    $fisheryService.addRsiFishery.save($scope.fishery, success, failure);
                 }
             }
         };
     }]);
-app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', '$service', '$mdToast', 'manageService',
-    function ($mdDialog, $q, $scope, $timeout, $service, $mdToast, manageService) {
+app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', '$fisheryService', '$mdToast', 'manageService',
+    function ($mdDialog, $q, $scope, $timeout, $fisheryService, $mdToast, manageService) {
         'use strict';
 
         $scope.countries = COUNTRIES;
@@ -129,9 +122,9 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
 
         $scope.loadData = function () {
             if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $service.rsiFisheries.query(rsiFisheriesSuccessFetch, failure).$promise;
+                $scope.promise = $fisheryService.rsiFisheries.query(rsiFisheriesSuccessFetch, failure).$promise;
             } else {
-                $scope.promise = $service.fisheries.query({countryCode: $scope.country.selected.code}, fisheriesSuccessFetch, failure).$promise;
+                $scope.promise = $fisheryService.fisheries.query({countryCode: $scope.country.selected.code}, fisheriesSuccessFetch, failure).$promise;
             }
         };
 
@@ -166,15 +159,15 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
                 .ok('Yes')
                 .cancel('No');
             $mdDialog.show(confirm).then(function () {
-                $service.deleteRsiFishery.delete({id: $scope.selected[0].id}, loadManagedData, failure);
+                $fisheryService.deleteRsiFishery.delete({id: $scope.selected[0].id}, loadManagedData, failure);
             });
         };
 
         function loadManagedData() {
             if ($scope.data === undefined || $scope.data.selectedIndex === 0) {
-                $scope.promise = $service.rsiFisheries.query(rsiFisheriesSuccessFetch).$promise;
+                $scope.promise = $fisheryService.rsiFisheries.query(rsiFisheriesSuccessFetch).$promise;
             } else {
-                $service.rsiFisheries.query(rsiFisheriesSuccessFetch);
+                $fisheryService.rsiFisheries.query(rsiFisheriesSuccessFetch);
             }
         }
 

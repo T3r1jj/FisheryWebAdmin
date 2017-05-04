@@ -14,13 +14,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @ContextConfiguration(classes = Application.class)
-public class KnowledgeBaseRestControllerTest {
+public class CrudRestControllerTest {
     @Autowired
-    private KnowledgeBaseRestController restController;
+    private CrudRestController restController;
 
     @Test
-    public void getAllArticlesRequests() throws Exception {
-        String articlesRequests = restController.getArticlesRequests();
+    public void getAllArticles() throws Exception {
+        String articlesRequests = restController.getArticles();
         Assert.assertTrue(articlesRequests.contains("["));
         Assert.assertTrue(articlesRequests.contains("]"));
     }

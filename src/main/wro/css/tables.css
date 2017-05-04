@@ -8,7 +8,9 @@
     flex: 1 1 auto;
 }
 
-.md-icon-refresh {
+md-toolbar.md-table-toolbar .md-toolbar-tools .md-icon-refresh,
+md-toolbar.md-default-theme:not(.md-menu-toolbar) .md-icon-refresh,
+md-toolbar:not(.md-menu-toolbar) .md-icon-refresh {
     fill: #333;
 }
 
@@ -17,6 +19,6 @@
     flex: 1 1 auto;
 }
 
-toolbar:not(.md-menu-toolbar) .md-icon-button-clear-filter {
+.md-icon-button-clear-filter {
     align-self: center;
 }

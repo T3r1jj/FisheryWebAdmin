@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.gitlab.druzyna_a</groupId>
     <artifactId>FisheryWebAdmin</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>FisheryWebAdmin</name>
     <description>FisheryWebAdmin module is a web app that provides an admin access to the Fishery project</description>

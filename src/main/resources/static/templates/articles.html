@@ -30,12 +30,66 @@
                  md-swipe-left="next()"
                  md-swipe-right="previous()"
                  layout="row" layout-align="center center">
-                <md-card flex-gt-sm="90" flex-gt-md="80">
-                    <md-card-content>
-                        <h2>Update articles</h2>
-                        Articles
-                    </md-card-content>
-                </md-card>
+                <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
+                    <md-card layout="row" flex>
+                        <md-card-content layout="row">
+                            <md-input-container md-theme="search" class="md-input-container-search">
+                                <label for="query-search">Search</label>
+                                <input id="query-search" flex ng-model="query.filter">
+                            </md-input-container>
+                            <md-button class="md-icon-button md-icon-button-clear-filter" ng-click="removeFilter()"
+                                       aria-label="Remove search filter">
+                                <md-icon ng-md-icon icon="close"></md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                    <md-card layout="row" flex>
+                        <md-card-content>
+                            <md-toolbar class="md-table-toolbar md-default">
+                                <div class="md-toolbar-tools">
+                                    <span>Articles</span>
+                                    <div flex></div>
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">
+                                        <md-icon ng-md-icon class="md-icon-refresh" icon="refresh"></md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
+
+                            <md-toolbar class="md-table-toolbar alternate"
+                                        ng-show="options.rowSelection && selected.length">
+                                <div class="md-toolbar-tools">
+                                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                                </div>
+                            </md-toolbar>
+
+                            <md-table-container>
+                                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
+                                       ng-model="selected" md-progress="promise">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                                    <tr md-row>
+                                        <th md-column md-order-by="title"><span>Title</span></th>
+                                        <th md-column md-order-by="time"><span>Author</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row md-select="article"
+                                        md-auto-select="options.autoSelect"
+                                        ng-repeat="article in articles | filter: query.filter | orderBy: query.order.articles | limitTo: query.limit : (query.page -1) * query.limit">
+                                        <td md-cell ng-bind="article.title"></td>
+                                        <td md-cell ng-bind="article.author" style="word-break: break-all"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
+                                                 md-page="query.page"
+                                                 md-total="{{articles.length}}"
+                                                 md-page-select="options.pageSelect"
+                                                 md-boundary-links="options.boundaryLinks"></md-table-pagination>
+                        </md-card-content>
+                    </md-card>
+                </div>
             </div>
         </ng-switch>
         <ng-switch on="data.selectedIndex" class="tabpanel-container">
@@ -46,79 +100,85 @@
                  md-swipe-left="next()"
                  md-swipe-right="previous()"
                  layout="row" layout-align="center center">
-                <!--<div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80"-->
-                     <!--style="align-items: stretch">-->
-                    <!--<md-card layout="row" flex>-->
-                        <!--<md-card-content layout="row" style="padding-bottom: 0; align-items: stretch; flex: 1 1 auto">-->
-                            <!--<md-input-container md-theme="search"-->
-                                                <!--style="margin-bottom: 0; margin-left:16px; flex: 1 1 auto">-->
-                                <!--<label>Search</label>-->
-                                <!--<input flex ng-model="query.filter">-->
-                            <!--</md-input-container>-->
-                            <!--<md-button class="md-icon-button" ng-click="removeFilter()" style="align-self: center;"-->
-                                       <!--aria-label="Remove search filter">-->
-                                <!--<md-icon ng-md-icon icon="close"></md-icon>-->
-                            <!--</md-button>-->
-                        <!--</md-card-content>-->
-                    <!--</md-card>-->
-                    <!--<md-card layout="row" flex>-->
-                        <!--<md-card-content layout="column" style="align-items: stretch; flex: 1 1 auto">-->
-                            <!--<md-toolbar class="md-table-toolbar md-default">-->
-                                <!--<div class="md-toolbar-tools">-->
-                                    <!--<span>Fisheries</span>-->
-                                    <!--<div flex></div>-->
-                                    <!--<md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">-->
-                                        <!--<md-icon ng-md-icon icon="refresh" style="fill: #333"></md-icon>-->
-                                    <!--</md-button>-->
-                                <!--</div>-->
-                            <!--</md-toolbar>-->
+                <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
+                    <md-card layout="row" flex>
+                        <md-card-content layout="row">
+                            <md-input-container md-theme="search" class="md-input-container-search">
+                                <label for="query-search2">Search</label>
+                                <input id="query-search2" flex ng-model="query.filter">
+                            </md-input-container>
+                            <md-button class="md-icon-button md-icon-button-clear-filter" ng-click="removeFilter()"
+                                       aria-label="Remove search filter">
+                                <md-icon ng-md-icon icon="close"></md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                    <md-card layout="row" flex>
+                        <md-card-content>
+                            <md-toolbar class="md-table-toolbar md-default">
+                                <div class="md-toolbar-tools">
+                                    <span>Articles requests</span>
+                                    <div flex></div>
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">
+                                        <md-icon ng-md-icon class="md-icon-refresh" icon="refresh"></md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
 
-                            <!--<md-toolbar class="md-table-toolbar alternate"-->
-                                        <!--ng-show="options.rowSelection && selected.length">-->
-                                <!--<div class="md-toolbar-tools">-->
-                                    <!--<span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>-->
-                                <!--</div>-->
-                            <!--</md-toolbar>-->
+                            <md-toolbar class="md-table-toolbar alternate"
+                                        ng-show="options.rowSelection && selected.length">
+                                <div class="md-toolbar-tools">
+                                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                                </div>
+                            </md-toolbar>
 
-                            <!--<md-table-container>-->
-                                <!--<table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"-->
-                                       <!--ng-model="selected" md-progress="promise">-->
-                                    <!--<thead ng-if="!options.decapitate" md-head md-order="query.order"-->
-                                           <!--md-on-reorder="logOrder">-->
-                                    <!--<tr md-row>-->
-                                        <!--<th md-column md-order-by="name"><span>Name</span></th>-->
-                                        <!--<th md-column md-numeric md-order-by="coordinate.lat.value"><span>Lat</span>-->
-                                        <!--</th>-->
-                                        <!--<th md-column md-numeric md-order-by="coordinate.lng.value"><span>Lng</span>-->
-                                        <!--</th>-->
-                                        <!--<th md-column><span>Description</span>-->
-                                        <!--</th>-->
-                                        <!--<th md-column><span>Requirements</span>-->
-                                        <!--</th>-->
-                                    <!--</tr>-->
-                                    <!--</thead>-->
-                                    <!--<tbody md-body>-->
-                                    <!--<tr md-row md-select="fishery" md-on-select="logItem"-->
-                                        <!--md-auto-select="options.autoSelect"-->
-                                        <!--ng-repeat="fishery in rsiFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">-->
-                                        <!--<td md-cell ng-bind="fishery.name"></td>-->
-                                        <!--<td md-cell ng-bind="fishery.lat"></td>-->
-                                        <!--<td md-cell ng-bind="fishery.lng"></td>-->
-                                        <!--<td md-cell ng-bind="fishery.description"></td>-->
-                                        <!--<td md-cell ng-bind="fishery.requirements"></td>-->
-                                    <!--</tr>-->
-                                    <!--</tbody>-->
-                                <!--</table>-->
-                            <!--</md-table-container>-->
+                            <md-table-container>
+                                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
+                                       ng-model="selected" md-progress="promise">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                                    <tr md-row>
+                                        <th md-column md-order-by="id"><span>Id</span></th>
+                                        <th md-column md-order-by="time"><span>Time</span>
+                                        </th>
+                                        <th md-column md-order-by="estimatedTime" style="text-align: left;">
+                                            <span>Estimated<br/>time</span>
+                                        </th>
+                                        <th md-column><span>Tags</span>
+                                        </th>
+                                        <th md-column md-numeric style="text-align: left;">
+                                            <span>Required<br/>tags</span>
+                                        </th>
+                                        <th md-column md-order-by="quick"><span>Quick</span>
+                                        </th>
+                                        <th md-column md-order-by="scraped"><span>Scraped</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row md-select="articlesRequest"
+                                        md-auto-select="options.autoSelect"
+                                        ng-repeat="articlesRequest in articlesRequests | filter: query.filter | orderBy: query.order.articlesRequests | limitTo: query.limit : (query.page -1) * query.limit">
+                                        <td md-cell ng-bind="articlesRequest.id" style="word-break: break-all"></td>
+                                        <td md-cell ng-bind="articlesRequest.formattedTime"></td>
+                                        <td md-cell><span
+                                                ng-bind="articlesRequest.estimatedTime"></span><span> min</span></td>
+                                        <td md-cell ng-bind="articlesRequest.tags"></td>
+                                        <td md-cell ng-bind="articlesRequest.requiredTagsCount"></td>
+                                        <td md-cell ng-bind="articlesRequest.quick"></td>
+                                        <td md-cell ng-bind="articlesRequest.scraped"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
 
-                            <!--<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"-->
-                                                 <!--md-page="query.page"-->
-                                                 <!--md-total="{{rsiFisheries.length}}" md-page-select="options.pageSelect"-->
-                                                 <!--md-boundary-links="options.boundaryLinks"-->
-                                                 <!--md-on-paginate="logPagination"></md-table-pagination>-->
-                        <!--</md-card-content>-->
-                    <!--</md-card>-->
-                <!--</div>-->
+                            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
+                                                 md-page="query.page"
+                                                 md-total="{{articlesRequests.length}}"
+                                                 md-page-select="options.pageSelect"
+                                                 md-boundary-links="options.boundaryLinks"></md-table-pagination>
+                        </md-card-content>
+                    </md-card>
+                </div>
             </div>
         </ng-switch>
     </ui-view>

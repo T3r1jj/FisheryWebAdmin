@@ -34,8 +34,8 @@
                     <md-card layout="row" flex>
                         <md-card-content layout="row">
                             <md-input-container md-theme="search" class="md-input-container-search">
-                                <label>Search</label>
-                                <input flex ng-model="query.filter">
+                                <label for="query-search">Search</label>
+                                <input id="query-search" flex ng-model="query.filter">
                             </md-input-container>
                             <md-button class="md-icon-button md-icon-button-clear-filter" ng-click="removeFilter()"
                                        aria-label="Remove search filter">
@@ -122,8 +122,8 @@
                             </md-input-container>
                             <md-input-container md-theme="search" class="md-input-container-search"
                                                 style="margin-left:16px;">
-                                <label>Search</label>
-                                <input flex ng-model="query.filter">
+                                <label for="query-search2">Search</label>
+                                <input id="query-search2" flex ng-model="query.filter">
                             </md-input-container>
                             <md-button class="md-icon-button md-icon-button-clear-filter" ng-click="removeFilter()"
                                        aria-label="Remove search filter">
