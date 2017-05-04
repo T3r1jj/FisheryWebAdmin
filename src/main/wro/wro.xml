@@ -7,6 +7,7 @@
     <group name="app">
         <group-ref>angular-bootstrap</group-ref>
         <group-ref>md-data-table</group-ref>
+        <css>/css/tables.css</css>
         <js>/js/constants.js</js>
         <js>/js/app.js</js>
         <js>/js/controllers/dashboard.js</js>
@@ -14,16 +15,18 @@
         <js>/js/controllers/fishes.js</js>
         <js>/js/controllers/fisheries.js</js>
     </group>
+    <!--minimize-->
     <group name="angular-bootstrap">
         <css>webjar:angular-material/@angular-material.version@/angular-material.min.css</css>
         <css>/css/main.less</css>
-        <js>webjar:angularjs/@angularjs.version@/angular.min.js</js>
-        <js>webjar:angularjs/@angularjs.version@/angular-route.min.js</js>
-        <js>webjar:angularjs/@angularjs.version@/angular-resource.min.js</js>
-        <js>webjar:angularjs/@angularjs.version@/angular-cookies.min.js</js>
-        <js>webjar:angularjs/@angularjs.version@/angular-animate.min.js</js>
-        <js>webjar:angularjs/@angularjs.version@/angular-aria.min.js</js>
-        <js>webjar:angular-material/@angular-material.version@/angular-material.min.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-route.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-resource.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-cookies.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-animate.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-aria.js</js>
+        <js>webjar:angularjs/@angularjs.version@/angular-messages.js</js>
+        <js>webjar:angular-material/@angular-material.version@/angular-material.js</js>
         <js>/js/angular-material-icons.min.js</js>
     </group>
     <group name="md-data-table">

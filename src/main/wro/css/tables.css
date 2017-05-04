@@ -1,0 +1,22 @@
+.tabpanel-container > div > div {
+    align-items: stretch;
+}
+
+.tabpanel-container md-card-content {
+    padding-bottom: 0;
+    align-items: stretch;
+    flex: 1 1 auto;
+}
+
+.md-icon-refresh {
+    fill: #333;
+}
+
+.md-input-container-search {
+    margin-bottom: 0;
+    flex: 1 1 auto;
+}
+
+toolbar:not(.md-menu-toolbar) .md-icon-button-clear-filter {
+    align-self: center;
+}

@@ -5,6 +5,9 @@ app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('search', 'default')
         .primaryPalette('pink')
 });
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
 app.factory('$service', ['$resource', function ($resource) {
     'use strict';
     return {
@@ -49,6 +52,8 @@ app.controller('ManageFisheryController', ['$mdDialog', '$service', '$scope', '$
     function ($mdDialog, $service, $scope, $mdToast, manageService) {
         'use strict';
 
+        this.cancel = $mdDialog.cancel;
+
         $scope.tooltipVisible = true;
         $scope.operation = manageService.getOperation() + " fishery";
         $scope.operationConfirm = manageService.getOperation() + " item";
@@ -68,9 +73,9 @@ app.controller('ManageFisheryController', ['$mdDialog', '$service', '$scope', '$
         }
 
         this.manageItem = function () {
-            $scope.item.form.$setSubmitted();
+            $scope.form.$setSubmitted();
 
-            if ($scope.item.form.$valid) {
+            if ($scope.form.$valid) {
                 if (manageService.getOperation() === "Update") {
                     $service.updateRsiFishery.put($scope.fishery, success, failure);
                 } else {
@@ -139,19 +144,6 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             $scope.rsiFisheries = fisheries;
             $scope.selected = [];
         }
-
-        $scope.logItem = function (item) {
-            console.log(item.name, 'was selected');
-        };
-
-        $scope.logOrder = function (order) {
-            console.log('order: ', order);
-        };
-
-        $scope.logPagination = function (page, limit) {
-            console.log('page: ', page);
-            console.log('limit: ', limit);
-        };
 
         $scope.addItem = function (event) {
             if ($scope.data.selectedIndex === 0) {

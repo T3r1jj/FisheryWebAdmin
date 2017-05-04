@@ -1,47 +1,47 @@
-<md-dialog add-item-dialog>
+<md-dialog>
     <md-dialog-content class="md-dialog-content">
 
         <h2 class="md-title" ng-bind="operation"></h2>
 
-        <p ng-if="item.form.$submitted && item.form.$invalid" class="md-warn" layout="row" layout-align="start center">
-            <i class="material-icons">error_outline</i>
-            <span>&nbsp; Please fill in required fields.</span>
+        <p ng-if="form.$submitted && form.$invalid" class="md-warn" layout="row" layout-align="start center">
+            <span class="error-label">*&nbsp; Please fill in required fields.</span>
         </p>
 
-        <form name="item.form" ng-submit="ctrl.addItem()">
+        <form name="form" ng-submit="ctrl.manageItem()">
             <div layout="row" class="input-row">
                 <md-input-container flex>
-                    <label>Name</label>
-                    <input name="name" ng-model="fishery.name" required>
+                    <label for="manage-name">Name</label>
+                    <input id="manage-name" name="name" ng-model="fishery.name" required>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Lat</label>
-                    <input name="lat" type="number" ng-model="fishery.lat" required>
+                    <label for="manage-lat">Lat</label>
+                    <input id="manage-lat" name="lat" type="number" ng-model="fishery.lat" required>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Lng</label>
-                    <input name="lng" type="number" ng-model="fishery.lng" required>
+                    <label for="manage-lng">Lng</label>
+                    <input id="manage-lng" name="lng" type="number" ng-model="fishery.lng" required>
                 </md-input-container>
             </div>
             <h3 class="md-subhead">Description</h3>
             <div layout="row" class="input-row">
                 <md-input-container flex>
-                    <label>Text (optional)</label>
-                    <textarea name="name" ng-model="fishery.description" max-rows="3"></textarea>
+                    <label for="manage-description">Text (optional)</label>
+                    <textarea id="manage-description" name="name" ng-model="fishery.description"></textarea>
                 </md-input-container>
             </div>
             <h3 class="md-subhead">Requirements</h3>
             <div layout="row" class="input-row">
                 <md-input-container flex>
-                    <label>Text (optional)</label>
-                    <textarea name="name" ng-model="fishery.requirements" max-rows="3"></textarea>
+                    <label for="manage-requirements">Text (optional)</label>
+                    <textarea id="manage-requirements" name="name" ng-model="fishery.requirements"></textarea>
                 </md-input-container>
             </div>
         </form>
     </md-dialog-content>
 
     <md-dialog-actions>
-        <md-button class="md-primary" ng-click="ctrl.manageItem()" ng-disabled="item.form.$invalid" ng-bind="operationConfirm" aria-label="Confirm"></md-button>
+        <md-button class="md-primary" ng-click="ctrl.manageItem()" ng-disabled="form.$invalid"
+                   ng-bind="operationConfirm" aria-label="Confirm"></md-button>
         <md-button class="md-primary" ng-click="ctrl.cancel()" aria-label="Cancel">Cancel</md-button>
     </md-dialog-actions>
 
