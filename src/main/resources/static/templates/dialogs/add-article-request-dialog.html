@@ -1,0 +1,55 @@
+<md-dialog flex-gt-sm="70" flex-gt-md="50">
+    <md-dialog-content class="md-dialog-content">
+
+        <h2 class="md-title">Request articles</h2>
+
+        <p ng-if="form.$submitted && form.$invalid" class="md-warn" layout="row" layout-align="start center">
+            <span class="error-label">*&nbsp; Please fill in required fields.</span>
+        </p>
+
+        <form name="form" ng-submit="ctrl.addItem()">
+            <div layout="row" class="input-row">
+                <md-input-container flex>
+                    <md-chips ng-model="articlesRequest.tags" flex
+                              readonly="false" md-removable="true"
+                              md-enable-chip-edit="true"
+                              placeholder="Enter tags*"
+                              delete-button-label="Remove Tag"
+                              delete-hint="Press delete to remove tag"
+                              md-require-match="false">
+                        <md-autocomplete flex
+                                md-selected-item="ctrl.selectedItem"
+                                md-search-text="ctrl.searchText"
+                                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                md-item-text="item"
+                                placeholder="Add tag">
+                            <span md-highlight-text="ctrl.searchText">{{item}}</span>
+                        </md-autocomplete>
+                    </md-chips>
+                </md-input-container>
+            </div>
+            <div layout="row" class="input-row">
+                <md-input-container>
+                    <label for="add-tags-count">Minimal tags count</label>
+                    <input type="number" min="1" id="add-tags-count" name="tagsCount"
+                           ng-model="articlesRequest.tagsCount">
+                </md-input-container>
+            </div>
+            <div layout="row" class="input-row">
+                <md-input-container flex>
+                    <label for="add-quick">Quick search (<15min / <150min)</label>
+                    <input type="checkbox" id="add-quick" name="quick" ng-model="articlesRequest.quick"
+                           style="width: 24px; height: 24px; padding-left: 0; padding-top: 4px">
+                </md-input-container>
+            </div>
+        </form>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="ctrl.addItem()" ng-disabled="form.$invalid || !articlesRequest.tags.length" aria-label="Confirm">Add
+            item
+        </md-button>
+        <md-button class="md-primary" ng-click="ctrl.cancel()" aria-label="Cancel">Cancel</md-button>
+    </md-dialog-actions>
+
+</md-dialog>

@@ -8,8 +8,29 @@
   width: 200px;
 }
 
-.md-button.md-default-theme.md-raised.index-button:not([disabled]):hover, .md-button.md-raised.index-button:not([disabled]):hover {
-  width: 200px;
+.btn-group {
+  text-align: center;
+}
+
+.toolbar-button {
+  width: 48px;
+  height: 32px;
+}
+
+.toolbar-button {
+  vertical-align: top;
+}
+
+.toolbar-button.active {
+  background-color: @gray;
+}
+
+.toolbar-button > md-icon {
+  vertical-align: super;
+}
+
+.md-button.md-default-theme.md-raised.index-button:not([disabled]):hover, .md-button.md-raised.index-button:not([disabled]):hover,
+.md-button.md-default-theme.md-raised.toolbar-button:not([disabled]):hover, .md-button.md-raised.toolbar-button:not([disabled]):hover {
   background-color: @gray;
 }
 
@@ -87,4 +108,18 @@ md-toast.md-center {
 
 .error-label {
   color: red;
+}
+
+.leftCenter {
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.rightCenter {
+  margin-right: auto;
+  margin-left: 8px;
+}
+
+.md-chips .md-chip-input-container{
+  width: 100%;
 }

@@ -4,7 +4,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="32">
+          <list size="37">
             <item index="0" class="java.lang.String" itemvalue="layout" />
             <item index="1" class="java.lang.String" itemvalue="layout-align" />
             <item index="2" class="java.lang.String" itemvalue="hide-gt-md" />
@@ -37,6 +37,11 @@
             <item index="29" class="java.lang.String" itemvalue="md-order" />
             <item index="30" class="java.lang.String" itemvalue="md-on-select" />
             <item index="31" class="java.lang.String" itemvalue="max-rows" />
+            <item index="32" class="java.lang.String" itemvalue="ta-toolbar-class" />
+            <item index="33" class="java.lang.String" itemvalue="ta-toolbar-button-class" />
+            <item index="34" class="java.lang.String" itemvalue="ta-toolbar-active-button-class" />
+            <item index="35" class="java.lang.String" itemvalue="ta-toolbar" />
+            <item index="36" class="java.lang.String" itemvalue="ta-toolbar-group-class" />
           </list>
         </value>
       </option>
@@ -45,7 +50,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="13">
+          <list size="14">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -59,6 +64,7 @@
             <item index="10" class="java.lang.String" itemvalue="md-dialog-content" />
             <item index="11" class="java.lang.String" itemvalue="md-dialog-actions" />
             <item index="12" class="java.lang.String" itemvalue="md-fab-trigger" />
+            <item index="13" class="java.lang.String" itemvalue="medium-editor" />
           </list>
         </value>
       </option>

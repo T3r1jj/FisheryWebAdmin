@@ -7,9 +7,11 @@
     <group name="app">
         <group-ref>angular-bootstrap</group-ref>
         <group-ref>md-data-table</group-ref>
+        <group-ref>textAngular</group-ref>
         <css>/css/tables.css</css>
         <js>/js/constants.js</js>
         <js>/js/app.js</js>
+        <js>/js/services.js</js>
         <js>/js/controllers/dashboard.js</js>
         <js>/js/controllers/articles.js</js>
         <js>/js/controllers/fishes.js</js>
@@ -32,5 +34,12 @@
     <group name="md-data-table">
         <css>/css/md-data-table.min.css</css>
         <js>/js/md-data-table.min.js</js>
+    </group>
+    <group name="textAngular">
+        <css>/textAngular-1.5.16/textAngular.css</css>
+        <js>/textAngular-1.5.16/textAngular-rangy.min.js</js>
+        <js>/textAngular-1.5.16/textAngular-sanitize.min.js</js>
+        <js>/textAngular-1.5.16/textAngularSetup.js</js>
+        <js>/textAngular-1.5.16/textAngular.js</js>
     </group>
 </groups>

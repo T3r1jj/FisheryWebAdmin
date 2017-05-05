@@ -2,32 +2,35 @@ const MENU_ITEMS = [{
     link: '/dashboard',
     title: 'Dashboard',
     icon: 'dashboard',
-    templateUrl: 'templates/dashboard.html',
+    templateUrl: 'templates/pages/dashboard.html',
     controller: 'DashboardController',
     index: -1
 }, {
     link: '/articles',
     title: 'Articles',
     icon: 'description',
-    templateUrl: 'templates/articles.html',
+    templateUrl: 'templates/pages/articles.html',
     controller: 'ArticlesController',
     index: 0
 }, {
     link: '/fishes',
     title: 'Fishes',
     icon: 'fish',
-    templateUrl: 'templates/fishes.html',
+    templateUrl: 'templates/pages/fishes.html',
     controller: 'FishesController',
     index: 1
 }, {
     link: '/fisheries',
     title: 'Fisheries',
     icon: 'place',
-    templateUrl: 'templates/fisheries.html',
+    templateUrl: 'templates/pages/fisheries.html',
     controller: 'FisheriesController',
     index: 2
 }];
-var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table']);
+var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table', 'textAngular']);
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('search', 'default')
         .primaryPalette('pink')

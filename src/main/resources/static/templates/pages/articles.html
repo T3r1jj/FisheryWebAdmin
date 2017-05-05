@@ -56,14 +56,14 @@
                             </md-toolbar>
 
                             <md-toolbar class="md-table-toolbar alternate"
-                                        ng-show="options.rowSelection && selected.length">
+                                        ng-show="selected.length">
                                 <div class="md-toolbar-tools">
                                     <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
                                 </div>
                             </md-toolbar>
 
                             <md-table-container>
-                                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
+                                <table md-table md-row-select="true" multiple="{{options.multiSelect}}"
                                        ng-model="selected" md-progress="promise">
                                     <thead ng-if="!options.decapitate" md-head md-order="query.order">
                                     <tr md-row>
@@ -156,6 +156,7 @@
                                     </thead>
                                     <tbody md-body>
                                     <tr md-row md-select="articlesRequest"
+                                        ng-click="openRequest(articlesRequest.id)"
                                         md-auto-select="options.autoSelect"
                                         ng-repeat="articlesRequest in articlesRequests | filter: query.filter | orderBy: query.order.articlesRequests | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell ng-bind="articlesRequest.id" style="word-break: break-all"></td>
@@ -181,5 +182,30 @@
                 </div>
             </div>
         </ng-switch>
+        <md-fab-speed-dial md-open="demo.isOpen" md-direction="up" class="md-fab-bottom-right"
+                           ng-class="open">
+            <md-fab-trigger style="display: none;"></md-fab-trigger>
+            <md-fab-actions>
+                <md-button aria-label="Delete" class="md-fab md-raised" ng-click="deleteItem($event)"
+                           ng-hide="data.selectedIndex || !selected.length">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Delete</md-tooltip>
+                    <md-icon ng-md-icon icon="remove_circle"></md-icon>
+                </md-button>
+                <md-button aria-label="Update" class="md-fab md-raised" ng-click="updateItem($event)"
+                           ng-hide="data.selectedIndex || !selected.length">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Update</md-tooltip>
+                    <md-icon ng-md-icon icon="edit"></md-icon>
+                </md-button>
+                <md-button aria-label="Add" class="md-fab md-raised" ng-click="addItem($event)">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible" ng-show="!data.selectedIndex">
+                        Add managed article
+                    </md-tooltip>
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible" ng-show="data.selectedIndex">
+                        Add articles request
+                    </md-tooltip>
+                    <md-icon ng-md-icon icon="add_circle"></md-icon>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
     </ui-view>
 </md-content>

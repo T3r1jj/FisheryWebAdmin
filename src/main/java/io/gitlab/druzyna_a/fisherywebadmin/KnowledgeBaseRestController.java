@@ -2,10 +2,11 @@ package io.gitlab.druzyna_a.fisherywebadmin;
 
 import io.gitlab.druzyna_a.totp4j.TOTP;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 @RestController
 public class KnowledgeBaseRestController {
 
+    private static final String BASE_URL = "https://fishery-knowledge-base.herokuapp.com/article";
     @Value("${io.gitlab.druzyna_a.knowledgebase.totp_interval}")
     private int totpInterval;
     @Value("${io.gitlab.druzyna_a.knowledgebase.totp_key}")
@@ -37,11 +39,33 @@ public class KnowledgeBaseRestController {
         Map<String, String> args = new HashMap<>();
         RestTemplate restTemplate = new RestTemplate();
         args.put("token", generateToken());
-        try {
-            return restTemplate.getForObject("https://fishery-knowledge-base.herokuapp.com/article?token={token}", String.class, args);
-        } catch (HttpStatusCodeException exception) {
-            return String.valueOf(exception.getStatusCode().value());
-        }
+        return restTemplate.getForObject(BASE_URL + "?token={token}", String.class, args);
+    }
+
+    @RequestMapping(value = "/api/articlesRequests/add", method = RequestMethod.GET)
+    public @ResponseBody
+    String addArticlesRequest(@RequestParam("tags") String tags, @RequestParam("tagsCount") int tagsCount, @RequestParam("quick") boolean quick) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        Map<String, String> args = new HashMap<>();
+        RestTemplate restTemplate = new RestTemplate();
+        args.put("tags", tags);
+        args.put("tagsCount", String.valueOf(tagsCount));
+        args.put("quick", String.valueOf(quick));
+        args.put("token", generateToken());
+        restTemplate.postForObject(BASE_URL + "/request?token={token}&tags={tags}&requiredTagsCount={tagsCount}&quick={quick}", entity, String.class, args);
+        return "true";
+    }
+
+    @RequestMapping(value = "/api/scrapedArticles", method = RequestMethod.GET)
+    public @ResponseBody
+    String getScrapedArticles(@RequestParam("id") String id) {
+        Map<String, String> args = new HashMap<>();
+        RestTemplate restTemplate = new RestTemplate();
+        args.put("id", id);
+        args.put("token", generateToken());
+        return restTemplate.getForObject(BASE_URL + "/{id}?token={token}", String.class, args);
     }
 
     private String generateToken() {

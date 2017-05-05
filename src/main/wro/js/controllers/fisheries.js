@@ -13,41 +13,12 @@ app.factory('$fisheryService', ['$resource', function ($resource) {
         })
     };
 }]);
-app.service('manageService', function () {
-    var fishery = null;
-    var operation = null;
-
-    var setOperation = function (manageOperation) {
-        operation = manageOperation;
-    };
-
-    var getOperation = function () {
-        return operation;
-    };
-
-    var setFishery = function (managedFishery) {
-        fishery = managedFishery;
-    };
-
-    var getFishery = function () {
-        return fishery;
-    };
-
-    return {
-        setOperation: setOperation,
-        getOperation: getOperation,
-        setFishery: setFishery,
-        getFishery: getFishery
-    };
-
-});
 app.controller('ManageFisheryController', ['$mdDialog', '$fisheryService', '$scope', '$mdToast', 'manageService',
     function ($mdDialog, $fisheryService, $scope, $mdToast, manageService) {
         'use strict';
 
         this.cancel = $mdDialog.cancel;
 
-        $scope.tooltipVisible = true;
         $scope.operation = manageService.getOperation() + " fishery";
         $scope.operationConfirm = manageService.getOperation() + " item";
         $scope.fishery = manageService.getFishery();
@@ -81,6 +52,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
     function ($mdDialog, $q, $scope, $timeout, $fisheryService, $mdToast, manageService) {
         'use strict';
 
+        $scope.tooltipVisible = true;
         $scope.countries = COUNTRIES;
         $scope.country = {};
         $scope.country.selected = $scope.countries[175];
@@ -144,11 +116,11 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             } else {
                 manageService.setOperation("Add managed");
             }
-            openManageDialog();
+            openManageDialog(event);
         };
         $scope.updateItem = function (event) {
             manageService.setOperation("Update");
-            openManageDialog();
+            openManageDialog(event);
         };
         $scope.deleteItem = function (event) {
             var confirm = $mdDialog.confirm()
@@ -171,7 +143,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             }
         }
 
-        function openManageDialog() {
+        function openManageDialog(event) {
             var fishery = (($scope.selected.length === 0) ? {} : JSON.parse(JSON.stringify($scope.selected[0])));
             if (fishery.coordinate != null) {
                 fishery.lat = fishery.coordinate.lat;
@@ -187,7 +159,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
                 controller: 'ManageFisheryController',
                 controllerAs: 'ctrl',
                 targetEvent: event,
-                templateUrl: 'templates/manage-fishery-dialog.html'
+                templateUrl: 'templates/dialogs/manage-fishery-dialog.html'
             }).then(loadManagedData);
         }
 
