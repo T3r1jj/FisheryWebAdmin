@@ -1,5 +1,6 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 public class StatusRestController {
 
     private static final String MAPPING_BASE_URL = "/api/status";
+
+    @Value("${build.version}")
+    private String buildVersion;
 
     @RequestMapping(value = MAPPING_BASE_URL + "/crud", method = RequestMethod.GET)
     public @ResponseBody
@@ -40,6 +44,12 @@ public class StatusRestController {
     public @ResponseBody
     String isUserUp() {
         return "{\"status\": \"down\"}";
+    }
+
+    @RequestMapping(value = MAPPING_BASE_URL, method = RequestMethod.GET)
+    public @ResponseBody
+    String getVersion() {
+        return "{\"version\": \"" + buildVersion + "\"}";
     }
 
 }

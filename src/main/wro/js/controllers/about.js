@@ -1,7 +1,11 @@
 /**
  * Created by Damian Terlecki on 07.05.17.
  */
-app.controller('AboutController', ['$scope', function ($scope) {
+app.controller('AboutController', ['$scope', '$http', function ($scope, $http) {
+    $scope.version = "";
+    $http.get("/api/status").then(function (api) {
+        $scope.version = api.data.version;
+    });
     $scope.attributions = {
         crud: {
             name: "Fishery CRUD web service",

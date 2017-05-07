@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+deploy:
+  only:
+    - tags
+    - triggers
+  stage: deploy
+  script:
+    - apt-get update -yq
+    - apt-get install rubygems ruby-dev -y
+    - gem install dpl
+    - dpl --provider=heroku --app=fishery-web-admin --api-key=$HEROKU_API_KEY
