@@ -32,7 +32,7 @@
                  layout="row" layout-align="center center">
                 <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
                     <md-card layout="row" flex>
-                        <md-card-content layout="row">
+                        <md-card-content class="md-cut-card-content" layout="row">
                             <md-input-container md-theme="search" class="md-input-container-search">
                                 <label for="query-search">Search</label>
                                 <input id="query-search" flex ng-model="query.filter">
@@ -44,7 +44,7 @@
                         </md-card-content>
                     </md-card>
                     <md-card layout="row" flex>
-                        <md-card-content>
+                        <md-card-content class="md-cut-card-content">
                             <md-toolbar class="md-table-toolbar md-default">
                                 <div class="md-toolbar-tools">
                                     <span>Fisheries</span>
@@ -81,7 +81,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fishery"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fishery in rsiFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fishery in managedFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell ng-bind="fishery.name"></td>
                                         <td md-cell ng-bind="fishery.lat"></td>
                                         <td md-cell ng-bind="fishery.lng"></td>
@@ -94,7 +94,7 @@
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
                                                  md-page="query.page"
-                                                 md-total="{{rsiFisheries.length}}" md-page-select="options.pageSelect"
+                                                 md-total="{{managedFisheries.length}}" md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
                         </md-card-content>
                     </md-card>
@@ -111,7 +111,7 @@
                  layout="row" layout-align="center center">
                 <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
                     <md-card layout="row" flex>
-                        <md-card-content layout="row">
+                        <md-card-content class="md-cut-card-content" layout="row">
                             <md-input-container md-theme="search" style="margin-bottom: 0">
                                 <label>Country</label>
                                 <md-select ng-model="country.selected">
@@ -132,7 +132,7 @@
                         </md-card-content>
                     </md-card>
                     <md-card layout="row" flex>
-                        <md-card-content layout="column">
+                        <md-card-content class="md-cut-card-content" layout="column">
                             <md-toolbar class="md-table-toolbar md-default">
                                 <div class="md-toolbar-tools">
                                     <span>Fisheries</span>

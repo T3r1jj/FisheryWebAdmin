@@ -27,7 +27,7 @@ const MENU_ITEMS = [{
     controller: 'FisheriesController',
     index: 2
 }];
-var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table', 'textAngular']);
+var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table', 'textAngular', 'ui-leaflet']);
 app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
 }]);

@@ -8,6 +8,7 @@
         <group-ref>angular-bootstrap</group-ref>
         <group-ref>md-data-table</group-ref>
         <group-ref>textAngular</group-ref>
+        <group-ref>leaflet</group-ref>
         <css>/css/tables.css</css>
         <js>/js/constants.js</js>
         <js>/js/app.js</js>
@@ -41,5 +42,11 @@
         <js>/textAngular-1.5.16/textAngular-sanitize.min.js</js>
         <js>/textAngular-1.5.16/textAngularSetup.js</js>
         <js>/textAngular-1.5.16/textAngular.js</js>
+    </group>
+    <group name="leaflet">
+        <js>/leaflet/leaflet.js</js>
+        <js>/leaflet/ui-leaflet-2.0.0/angular-simple-logger.min.js</js>
+        <js>/leaflet/ui-leaflet-2.0.0/ui-leaflet.min.js</js>
+        <css>/leaflet/leaflet.css</css>
     </group>
 </groups>

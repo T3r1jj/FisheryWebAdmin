@@ -2,7 +2,7 @@
     align-items: stretch;
 }
 
-.tabpanel-container md-card-content {
+.tabpanel-container .md-cut-card-content {
     padding-bottom: 0;
     align-items: stretch;
     flex: 1 1 auto;

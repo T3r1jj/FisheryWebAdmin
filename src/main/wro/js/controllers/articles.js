@@ -1,19 +1,6 @@
 /**
  * Created by Damian Terlecki on 02.05.17.
  */
-app.factory('$articleService', ['$resource', function ($resource) {
-    'use strict';
-    return {
-        articlesRequests: $resource('/api/articlesRequests'),
-        scrapedArticles: $resource('/api/scrapedArticles'),
-        articles: $resource('/api/articles'),
-        addArticle: $resource('/api/articles/add'),
-        updateArticle: $resource('/api/articles/update'),
-        deleteArticle: $resource('/api/articles/delete'),
-        addArticlesRequest: $resource('/api/articlesRequests/add'),
-        getTags: $resource('https://fishery-knowledge-base.herokuapp.com/article/tags/All')
-    };
-}]);
 app.config(function ($provide) {
     $provide.decorator('taTools', ['$delegate', function (taTools) {
         delete taTools.quote.iconclass;

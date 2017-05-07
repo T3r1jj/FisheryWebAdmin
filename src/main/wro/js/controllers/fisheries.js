@@ -1,18 +1,6 @@
 /**
  * Created by Damian Terlecki on 02.05.17.
  */
-app.factory('$fisheryService', ['$resource', function ($resource) {
-    'use strict';
-    return {
-        fisheries: $resource('https://fishery-knowledge-base.herokuapp.com/fishery'),
-        rsiFisheries: $resource('https://druzyna-a-crud.herokuapp.com/fishery/list'),
-        addRsiFishery: $resource('https://druzyna-a-crud.herokuapp.com/fishery/create'),
-        deleteRsiFishery: $resource('https://druzyna-a-crud.herokuapp.com/fishery/:id', {id: "@id"}),
-        updateRsiFishery: $resource('https://druzyna-a-crud.herokuapp.com/fishery/update', {}, {
-            put: {method: 'PUT'}
-        })
-    };
-}]);
 app.controller('ManageFisheryController', ['$mdDialog', '$fisheryService', '$scope', '$mdToast', 'manageService',
     function ($mdDialog, $fisheryService, $scope, $mdToast, manageService) {
         'use strict';
@@ -86,7 +74,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
         };
 
         $scope.fisheries = [];
-        $scope.rsiFisheries = [];
+        $scope.managedFisheries = [];
 
         $scope.toggleLimitOptions = function () {
             $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
@@ -94,7 +82,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
 
         $scope.loadData = function () {
             if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $fisheryService.rsiFisheries.query(rsiFisheriesSuccessFetch, failure).$promise;
+                $scope.promise = $fisheryService.managedFisheries.query(managedFisheriesSuccessFetch, failure).$promise;
             } else {
                 $scope.promise = $fisheryService.fisheries.query({countryCode: $scope.country.selected.code}, fisheriesSuccessFetch, failure).$promise;
             }
@@ -105,8 +93,8 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             $scope.selected = [];
         }
 
-        function rsiFisheriesSuccessFetch(fisheries) {
-            $scope.rsiFisheries = fisheries;
+        function managedFisheriesSuccessFetch(fisheries) {
+            $scope.managedFisheries = fisheries;
             $scope.selected = [];
         }
 
@@ -137,9 +125,9 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
 
         function loadManagedData() {
             if ($scope.data === undefined || $scope.data.selectedIndex === 0) {
-                $scope.promise = $fisheryService.rsiFisheries.query(rsiFisheriesSuccessFetch).$promise;
+                $scope.promise = $fisheryService.managedFisheries.query(managedFisheriesSuccessFetch).$promise;
             } else {
-                $fisheryService.rsiFisheries.query(rsiFisheriesSuccessFetch);
+                $fisheryService.managedFisheries.query(managedFisheriesSuccessFetch);
             }
         }
 

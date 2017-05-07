@@ -1,13 +1,11 @@
-package io.gitlab.druzyna_a.fisherywebadmin;
+package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
 import io.gitlab.druzyna_a.totp4j.TOTP;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.security.InvalidKeyException;

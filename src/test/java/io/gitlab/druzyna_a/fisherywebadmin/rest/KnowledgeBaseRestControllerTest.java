@@ -1,5 +1,7 @@
-package io.gitlab.druzyna_a.fisherywebadmin;
+package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
+import io.gitlab.druzyna_a.fisherywebadmin.Application;
+import io.gitlab.druzyna_a.fisherywebadmin.rest.KnowledgeBaseRestController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

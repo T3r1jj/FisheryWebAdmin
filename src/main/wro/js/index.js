@@ -1,5 +1,6 @@
 angular.module('app', ['ngMaterial', 'ngMdIcons'])
     .controller('IndexController', function ($http, $location, $timeout, $window) {
+
         function redirectWithDelay() {
             $timeout(function () {
                 if (self.authenticated) {
@@ -15,9 +16,17 @@ angular.module('app', ['ngMaterial', 'ngMdIcons'])
 
         var self = this;
         $http.get('/user').then(function (response) {
+            function wakeUpServices() {
+                $http.get('/api/status/crud');
+                $http.get('/api/status/knowledge_base');
+                $http.get('/api/status/client');
+                $http.get('/api/status/user');
+            }
+
             self.user = response.data.userAuthentication.name;
             self.authenticated = true;
-            self.redirectSec = 3;
+            self.redirectSec = 5;
+            wakeUpServices();
             redirectWithDelay();
         }, function (result) {
             self.user = 'N/A';

@@ -11,28 +11,39 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CompositeFilter;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Damian Terlecki
  */
 @Configuration
 @EnableOAuth2Client
-@RestController
 @EnableAutoConfiguration
 @ComponentScan(basePackageClasses = {
         ViewController.class,
@@ -44,11 +55,6 @@ public class Application extends WebSecurityConfigurerAdapter {
 
     @Autowired
     OAuth2ClientContext oauth2ClientContext;
-
-    @RequestMapping("/user")
-    public Principal user(Principal principal) {
-        return principal;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -69,12 +75,29 @@ public class Application extends WebSecurityConfigurerAdapter {
         List<Filter> filters = new ArrayList<>();
         filters.add(ssoFilter(google(), "/login/google"));
         filters.add(ssoFilter(github(), "/login/github"));
+        filters.add(ssoFilter(gitlab(), "/login/gitlab"));
         filter.setFilters(filters);
         return filter;
     }
 
     private Filter ssoFilter(ClientResources client, String path) {
-        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
+        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path) {
+            @Override
+            public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+                Authentication authentication = super.attemptAuthentication(request, response);
+                OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+                Map<String, String> args = new HashMap<>();
+                args.put("access_token", details.getTokenValue());
+                RestTemplate restTemplate = new RestTemplate();
+                try {
+                    restTemplate.getForObject("https://gitlab.com/api/v4/groups/Druzyna-A/members?access_token={access_token}", String.class, args);
+                } catch (Exception e) {
+                    new SecurityContextLogoutHandler().logout(request, response, authentication);
+                    throw new AccessDeniedException("The app has been set to deny access for users that are not part of Druzyna-A group on GitLab");
+                }
+                return authentication;
+            }
+        };
         OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
         filter.setRestTemplate(template);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(
@@ -96,6 +119,12 @@ public class Application extends WebSecurityConfigurerAdapter {
     @Bean
     @ConfigurationProperties("github")
     public ClientResources github() {
+        return new ClientResources();
+    }
+
+    @Bean
+    @ConfigurationProperties("gitlab")
+    public ClientResources gitlab() {
         return new ClientResources();
     }
 

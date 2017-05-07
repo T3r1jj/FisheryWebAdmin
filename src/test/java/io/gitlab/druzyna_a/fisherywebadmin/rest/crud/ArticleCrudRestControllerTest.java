@@ -1,5 +1,7 @@
-package io.gitlab.druzyna_a.fisherywebadmin;
+package io.gitlab.druzyna_a.fisherywebadmin.rest.crud;
 
+import io.gitlab.druzyna_a.fisherywebadmin.Application;
+import io.gitlab.druzyna_a.fisherywebadmin.rest.crud.ArticleCrudRestController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @ContextConfiguration(classes = Application.class)
-public class CrudRestControllerTest {
+public class ArticleCrudRestControllerTest {
     @Autowired
-    private CrudRestController restController;
+    private ArticleCrudRestController restController;
 
     @Test
     public void getAllArticles() throws Exception {

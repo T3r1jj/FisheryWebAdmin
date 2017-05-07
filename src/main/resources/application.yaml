@@ -22,3 +22,12 @@ github:
       - user:email
   resource:
     userInfoUri: https://api.github.com/user
+gitlab:
+  client:
+    clientId: 6261e0e9ae982441ab3e9b02f0fefc1b6286081712cf587f76b7ca9981032075
+    clientSecret: dee47f35ac2ce3d61f83b6e59a92387868daaf1f48038d0f41aba2b1a9faeb14
+    accessTokenUri: https://gitlab.com/oauth/token
+    userAuthorizationUri: https://gitlab.com/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://gitlab.com/api/v4/user
