@@ -12,7 +12,8 @@ public class ViewController {
             "/articles",
             "/dashboard",
             "/fishes",
-            "/fisheries"
+            "/fisheries",
+            "/about"
     })
     public String index() {
         return "forward:/app.html";

@@ -4,6 +4,10 @@
     <title>Fishery Web Admin</title>
     <link href="css/app.css" rel="stylesheet">
     <base href="/">
+    <meta charset="utf-8"/>
+    <meta name="author" content="Damian Terlecki">
+    <meta name="keywords" content="Fishery,Admin,Web,Services">
+    <meta name="description" content="Admin interface for RSI Fishery project">
 </head>
 
 <body layout="row" ng-controller="ApplicationController" ng-cloak>
@@ -12,12 +16,12 @@
     <md-toolbar class="md-tall md-hue-2">
         <span flex></span>
         <div layout="column" class="md-toolbar-tools-bottom inset">
-            <img class="user-avatar" height="64" width="64" pointer-events="none" ng-src="{{user.picture}}" />
+            <img class="user-avatar" height="64" width="64" pointer-events="none" ng-src="{{user.picture}}"/>
             <div ng-bind="user.name"></div>
             <div ng-bind="user.email"></div>
         </div>
     </md-toolbar>
-    <md-list>
+    <md-list style="height: 100%" layout="column">
         <md-list-item ng-repeat="item in menu" ng-click="go(item)" ng-class="{selectedIndex: selectedIndex===-1}">
             <a>
                 <md-item-content md-ink-ripple layout="row" layout-align="start center">
@@ -38,6 +42,19 @@
                         <md-icon ng-md-icon icon="{{item.icon}}"></md-icon>
                     </div>
                     <div class="inset">{{item.title}}
+                    </div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+        <md-divider flex></md-divider>
+        <md-divider></md-divider>
+        <md-list-item ng-click="go(about)" ng-class="{selectedIndex: selectedIndex===-2}">
+            <a>
+                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon ng-md-icon icon="{{about.icon}}"></md-icon>
+                    </div>
+                    <div class="inset">{{about.title}}
                     </div>
                 </md-item-content>
             </a>

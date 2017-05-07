@@ -14,14 +14,14 @@
         <br/>
         <br/>
         <div layout="row" layout-align="center">
-            <md-button href="/login/google" class="md-raised md-cornered index-button">
+            <md-button href="/login/google" class="md-raised md-cornered index-button" disabled>
                 <md-icon ng-md-icon icon="google-plus" style="fill: #d34836"></md-icon>
                 <span class="social-button-label">Sign in with Google</span>
             </md-button>
         </div>
         <br/>
         <div layout="row" layout-align="center">
-            <md-button href="/login/github" class="md-raised md-cornered index-button">
+            <md-button href="/login/github" class="md-raised md-cornered index-button" disabled>
                 <md-icon ng-md-icon icon="github-circle" style="fill: #333"></md-icon>
                 <span class="social-button-label">Sign in with GitHub</span>
             </md-button>
@@ -29,7 +29,7 @@
         <br/>
         <div layout="row" layout-align="center">
             <md-button href="/login/gitlab" class="md-raised md-cornered index-button">
-                <md-icon ng-md-icon icon="login" style="fill: #333"></md-icon>
+                <md-icon ng-md-icon icon="gitlab"></md-icon>
                 <span class="social-button-label">Sign in with GitLab</span>
             </md-button>
         </div>
@@ -44,7 +44,10 @@
         <br/>
         <br/>
         <div layout="row" layout-align="center">
-            <md-button ng-click="index.logout()" class="md-raised md-cornered index-button">Logout</md-button>
+            <md-button ng-click="index.logout()" class="md-raised md-cornered index-button">
+                <md-icon ng-md-icon icon="logout"></md-icon>
+                <span class="social-button-label">Logout</span>
+            </md-button>
         </div>
     </div>
 </div>

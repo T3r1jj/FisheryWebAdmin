@@ -16,14 +16,14 @@ import java.util.Map;
 @RestController
 public class FishCrudRestController {
 
-    private static final String ARTICLES_BASE_URL = "https://druzyna-a-crud.herokuapp.com/fish";
+    private static final String FISH_BASE_URL = "https://druzyna-a-crud.herokuapp.com/fish";
     private static final String MAPPING_BASE_URL = "/api/fishes";
 
     @RequestMapping(value = MAPPING_BASE_URL, method = RequestMethod.GET)
     public @ResponseBody
     String getFishes() {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(ARTICLES_BASE_URL + "/list", String.class);
+        return restTemplate.getForObject(FISH_BASE_URL + "/list", String.class);
     }
 
     @RequestMapping(value = MAPPING_BASE_URL + "/add", method = RequestMethod.POST)
@@ -31,7 +31,7 @@ public class FishCrudRestController {
     String addFish(@RequestBody String data) {
         HttpEntity<String> entity = prepareJsonEntity(data);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(ARTICLES_BASE_URL + "/create", entity, String.class);
+        return restTemplate.postForObject(FISH_BASE_URL + "/create", entity, String.class);
     }
 
     @RequestMapping(value = MAPPING_BASE_URL + "/update", method = RequestMethod.POST)
@@ -39,12 +39,12 @@ public class FishCrudRestController {
     String updateFish(@RequestBody String data) {
         HttpEntity<String> entity = prepareJsonEntity(data);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(ARTICLES_BASE_URL + "/update", HttpMethod.PUT, entity, String.class).getBody();
+        return restTemplate.exchange(FISH_BASE_URL + "/update", HttpMethod.PUT, entity, String.class).getBody();
     }
 
     private HttpEntity<String> prepareJsonEntity(@RequestBody String data) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return new HttpEntity<>(data, headers);
     }
 
@@ -54,7 +54,7 @@ public class FishCrudRestController {
         Map<String, String> args = new HashMap<>();
         args.put("id", String.valueOf(id));
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(ARTICLES_BASE_URL + "/{id}", HttpMethod.DELETE, null, String.class, args).getBody();
+        return restTemplate.exchange(FISH_BASE_URL + "/{id}", HttpMethod.DELETE, null, String.class, args).getBody();
     }
 
 }

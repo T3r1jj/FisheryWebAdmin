@@ -3,6 +3,7 @@
  */
 app.service('manageService', function () {
     var fishery = null;
+    var fish = null;
     var operation = null;
     var articles = null;
     var article = null;
@@ -48,9 +49,19 @@ app.service('manageService', function () {
         return tags;
     };
 
+    var getFish = function () {
+        return fish;
+    };
+
+    var setFish = function (managedFish) {
+        fish = managedFish;
+    };
+
     return {
         setOperation: setOperation,
         getOperation: getOperation,
+        setFish: setFish,
+        getFish: getFish,
         setFishery: setFishery,
         getFishery: getFishery,
         setArticles: setArticles,
@@ -79,7 +90,14 @@ app.factory('$articleService', ['$resource', function ($resource) {
 app.factory('$fishService', ['$resource', function ($resource) {
     'use strict';
     return {
-        fishes: $resource('/api/fishes')
+        fishes: $resource('/api/fishes'),
+        fish: $resource('https://fishery-knowledge-base.herokuapp.com/fish/:name', {id: "@name"}),
+        fishNames: $resource('https://fishery-knowledge-base.herokuapp.com/fish'),
+        fishProtection: $resource('https://fishery-knowledge-base.herokuapp.com/fish/protection'),
+        fishImages: $resource('https://fishery-knowledge-base.herokuapp.com/fish/images'),
+        addFish: $resource('/api/fishes/add'),
+        updateFish: $resource('/api/fishes/update'),
+        deleteFish: $resource('/api/fishes/delete')
     };
 }]);
 

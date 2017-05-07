@@ -44,7 +44,7 @@ public class ArticleCrudRestController {
 
     private HttpEntity<String> prepareJsonEntity(@RequestBody String data) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return new HttpEntity<>(data, headers);
     }
 

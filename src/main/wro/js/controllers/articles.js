@@ -269,4 +269,5 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
             );
         }
 
+        loadManagedData();
     }]);
