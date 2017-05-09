@@ -106,7 +106,7 @@ app.factory('$fisheryService', ['$resource', function ($resource) {
     return {
         scrapedFisheries: $resource('https://fishery-knowledge-base.herokuapp.com/fishery'),
         fisheries: $resource('/api/fisheries'),
-        addFishery: $resource('/api/fisheries/create'),
+        addFishery: $resource('/api/fisheries/add'),
         deleteFishery: $resource('/api/fisheries/delete'),
         updateFishery: $resource('/api/fisheries/update')
     };
