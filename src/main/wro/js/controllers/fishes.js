@@ -112,7 +112,6 @@ app.controller('ManageFishController', ['$mdDialog', '$fishService', '$scope', '
 app.controller('FishesController', ['$mdDialog', '$q', '$scope', '$timeout', '$fishService', '$mdToast', 'manageService',
     function ($mdDialog, $q, $scope, $timeout, $fishService, $mdToast, manageService) {
         'use strict';
-        $scope.tooltipVisible = true;
         $scope.countries = COUNTRIES;
         $scope.country = {};
         $scope.country.selected = $scope.countries[175];

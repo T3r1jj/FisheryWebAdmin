@@ -196,16 +196,20 @@
             <md-fab-actions>
                 <md-button aria-label="Delete" class="md-fab md-raised" ng-click="deleteItem($event)"
                            ng-show="options.rowSelection && selected.length && !data.selectedIndex">
-                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Delete</md-tooltip>
+                    <md-tooltip md-direction="left" ng-hide="data.selectedIndex || !selected.length">
+                        Delete
+                    </md-tooltip>
                     <md-icon ng-md-icon icon="remove_circle"></md-icon>
                 </md-button>
                 <md-button aria-label="Update" class="md-fab md-raised" ng-click="updateItem($event)"
                            ng-show="options.rowSelection && selected.length && !data.selectedIndex">
-                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Update</md-tooltip>
+                    <md-tooltip md-direction="left" ng-hide="data.selectedIndex || !selected.length">
+                        Update
+                    </md-tooltip>
                     <md-icon ng-md-icon icon="edit"></md-icon>
                 </md-button>
                 <md-button aria-label="Add" class="md-fab md-raised" ng-click="addItem($event)">
-                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Add managed fishery</md-tooltip>
+                    <md-tooltip md-direction="left">Add managed fishery</md-tooltip>
                     <md-icon ng-md-icon icon="add_circle"></md-icon>
                 </md-button>
             </md-fab-actions>

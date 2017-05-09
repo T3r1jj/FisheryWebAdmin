@@ -122,7 +122,7 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
         'use strict';
 
         $scope.data = {selectedIndex: 0};
-        $scope.tooltipVisible = true;
+        $scope.tooltipAutohide = false;
         $scope.selected = [];
         $scope.limitOptions = [5, 10, 15];
 
