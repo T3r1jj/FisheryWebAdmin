@@ -165,14 +165,14 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
 
         $scope.loadData = function () {
             if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $articleService.articles.query(articlesSuccess, failure).$promise;
+                $scope.crudPromise = $articleService.articles.query(articlesSuccess, failure).$promise;
             } else {
-                $scope.promise = $articleService.articlesRequests.query(articlesRequestsSuccess, failure).$promise;
+                $scope.knowledgeBasePromise = $articleService.articlesRequests.query(articlesRequestsSuccess, failure).$promise;
             }
         };
 
         $scope.openRequest = function (id) {
-            $scope.promise = $articleService.scrapedArticles.query({id: id}, scrapedArticlesSuccess, failure).$promise;
+            $scope.knowledgeBasePromise = $articleService.scrapedArticles.query({id: id}, scrapedArticlesSuccess, failure).$promise;
         };
 
         $scope.addItem = function (event) {
@@ -234,11 +234,7 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
         }
 
         function loadManagedData() {
-            if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $articleService.articles.query(articlesSuccess, failure).$promise;
-            } else {
-                $articleService.articles.query(articlesSuccess, failure);
-            }
+            $scope.crudPromise = $articleService.articles.query(articlesSuccess, failure).$promise;
         }
 
         function articlesRequestsSuccess(articlesRequests) {

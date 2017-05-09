@@ -64,7 +64,7 @@
 
                             <md-table-container>
                                 <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
-                                       ng-model="selected" md-progress="promise">
+                                       ng-model="selected" md-progress="crudPromise">
                                     <thead ng-if="!options.decapitate" md-head md-order="query.order">
                                     <tr md-row>
                                         <th md-column md-order-by="name"><span>Name</span></th>
@@ -152,7 +152,7 @@
 
                             <md-table-container>
                                 <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
-                                       ng-model="selected" md-progress="promise">
+                                       ng-model="selected" md-progress="knowledgeBasePromise">
                                     <thead ng-if="!options.decapitate" md-head md-order="query.order">
                                     <tr md-row>
                                         <th md-column md-order-by="name"><span>Name</span></th>

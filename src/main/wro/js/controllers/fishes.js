@@ -153,9 +153,9 @@ app.controller('FishesController', ['$mdDialog', '$q', '$scope', '$timeout', '$f
 
         $scope.loadData = function () {
             if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $fishService.fishes.query(fishesSuccessFetch, failure).$promise;
+                $scope.crudPromise = $fishService.fishes.query(fishesSuccessFetch, failure).$promise;
             } else {
-                $scope.promise = $fishService.fishNames.query({countryCode: $scope.country.selected.code}, fishNamesSuccessFetch, failure).$promise;
+                $scope.knowledgeBasePromise = $fishService.fishNames.query({countryCode: $scope.country.selected.code}, fishNamesSuccessFetch, failure).$promise;
             }
         };
 
@@ -200,11 +200,7 @@ app.controller('FishesController', ['$mdDialog', '$q', '$scope', '$timeout', '$f
         };
 
         function loadManagedData() {
-            if ($scope.data === undefined || $scope.data.selectedIndex === 0) {
-                $scope.promise = $fishService.fishes.query(fishesSuccessFetch).$promise;
-            } else {
-                $fishService.fishes.query(fishesSuccessFetch);
-            }
+            $scope.crudPromise = $fishService.fishes.query(fishesSuccessFetch).$promise;
         }
 
         function openManageDialog(event) {

@@ -81,9 +81,9 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
 
         $scope.loadData = function () {
             if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $fisheryService.fisheries.query(fisheriesSuccessFetch, failure).$promise;
+                $scope.crudPromise = $fisheryService.fisheries.query(fisheriesSuccessFetch, failure).$promise;
             } else {
-                $scope.promise = $fisheryService.scrapedFisheries.query({countryCode: $scope.country.selected.code}, scrapedFisheriesSuccessFetch, failure).$promise;
+                $scope.knowledgeBasePromise = $fisheryService.scrapedFisheries.query({countryCode: $scope.country.selected.code}, scrapedFisheriesSuccessFetch, failure).$promise;
             }
         };
 
@@ -123,11 +123,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
         };
 
         function loadManagedData() {
-            if ($scope.data === undefined || $scope.data.selectedIndex === 0) {
-                $scope.promise = $fisheryService.fisheries.query(fisheriesSuccessFetch).$promise;
-            } else {
-                $fisheryService.fisheries.query(fisheriesSuccessFetch);
-            }
+            $scope.crudPromise = $fisheryService.fisheries.query(fisheriesSuccessFetch).$promise;
         }
 
         function openManageDialog(event) {
