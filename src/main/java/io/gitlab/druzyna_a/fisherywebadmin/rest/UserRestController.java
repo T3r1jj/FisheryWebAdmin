@@ -1,9 +1,13 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,12 +22,25 @@ import java.util.Map;
 public class UserRestController {
 
     @RequestMapping("/user")
-    public Principal user(Principal principal) {
-        return principal;
+    public @ResponseBody
+    String user(OAuth2Authentication oauth2) {
+        Authentication userAuthentication = oauth2.getUserAuthentication();
+        String name = userAuthentication.getPrincipal().toString();
+        Map<String, Object> details = (Map<String, Object>) userAuthentication.getDetails();
+        String email = details.get("email").toString();
+        String picture = null;
+        if (details.containsKey("picture")) {
+            picture = details.get("picture").toString();
+        }
+        if (details.containsKey("avatar_url")) {
+            picture = details.get("avatar_url").toString();
+        }
+        return "{\"user\":{\"name\":\"" + name + "\", \"email\": \"" + email + "\", \"picture\": \"" + picture + "\"}}";
     }
 
     @RequestMapping(path = "/api/admins/count")
-    public String getUsers() {
+    public @ResponseBody
+    String getUsers() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
         Map<String, String> args = new HashMap<>();

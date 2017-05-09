@@ -28,7 +28,7 @@ angular.module('app', ['ngMaterial', 'ngMdIcons'])
                 $http.get('/api/status/user');
             }
 
-            self.user = response.data.userAuthentication.name;
+            self.user = response.data.user.name;
             self.authenticated = true;
             self.redirectSec = 5;
             wakeUpServices();

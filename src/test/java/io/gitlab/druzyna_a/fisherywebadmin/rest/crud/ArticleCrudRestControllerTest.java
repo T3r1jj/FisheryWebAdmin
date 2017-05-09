@@ -1,7 +1,6 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest.crud;
 
 import io.gitlab.druzyna_a.fisherywebadmin.Application;
-import io.gitlab.druzyna_a.fisherywebadmin.rest.crud.ArticleCrudRestController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

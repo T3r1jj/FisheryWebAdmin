@@ -71,10 +71,9 @@ app.controller('ApplicationController', ['$scope', '$mdSidenav', '$http', '$loca
         $scope.user = {};
         $scope.user.picture = "assets/fish.png";
         $http.get("/user").then(function (response) {
-            $scope.user.name = response.data.userAuthentication.name;
-            $scope.user.email = response.data.userAuthentication.details.email;
-            $scope.user.picture = (response.data.userAuthentication.details.picture == null) ? response.data.userAuthentication.details.avatar_url :
-                response.data.userAuthentication.details.picture;
+            $scope.user.name = response.data.user.name;
+            $scope.user.email = response.data.user.email;
+            $scope.user.picture = response.data.user.picture;
         }, function (result) {
             $scope.user.name = "N/A";
             $scope.user.email = "N/A";

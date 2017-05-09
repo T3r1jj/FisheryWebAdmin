@@ -1,6 +1,7 @@
 package io.gitlab.druzyna_a.fisherywebadmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
@@ -55,6 +56,8 @@ public class Application extends WebSecurityConfigurerAdapter {
 
     @Autowired
     OAuth2ClientContext oauth2ClientContext;
+    @Value("${login.group}")
+    String loginGroup;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -85,12 +88,15 @@ public class Application extends WebSecurityConfigurerAdapter {
             @Override
             public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
                 Authentication authentication = super.attemptAuthentication(request, response);
+                if (loginGroup.isEmpty()) {
+                    return authentication;
+                }
                 OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
                 Map<String, String> args = new HashMap<>();
                 args.put("access_token", details.getTokenValue());
                 RestTemplate restTemplate = new RestTemplate();
                 try {
-                    restTemplate.getForObject("https://gitlab.com/api/v4/groups/Druzyna-A/members?access_token={access_token}", String.class, args);
+                    restTemplate.getForObject("https://gitlab.com/api/v4/groups/" + loginGroup + "/members?access_token={access_token}", String.class, args);
                 } catch (Exception e) {
                     new SecurityContextLogoutHandler().logout(request, response, authentication);
                     throw new AccessDeniedException("The app has been set to deny access for users that are not part of Druzyna-A group on GitLab");
