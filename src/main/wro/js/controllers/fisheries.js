@@ -7,6 +7,38 @@ app.controller('ManageFisheryController', ['$mdDialog', '$fisheryService', '$sco
 
         this.cancel = $mdDialog.cancel;
 
+        var icon = {
+            iconUrl: 'css/images/marker-icon.png',
+            shadowUrl: 'css/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        };
+        $scope.marker = {
+            lat: manageService.getFishery().lat,
+            lng: manageService.getFishery().lng,
+            icon: icon,
+            draggable: true
+        };
+        angular.extend($scope, {
+            markers: [$scope.marker],
+            position: {
+                lat: $scope.marker.lat,
+                lng: $scope.marker.lng
+            },
+            events: {
+                markers:{
+                    enable: [ 'dragend' ]
+                }
+            }
+        });
+
+        $scope.$on("leafletDirectiveMarker.dragend", function(event, args){
+            $scope.position.lat = args.model.lat;
+            $scope.position.lng = args.model.lng;
+        });
+
         $scope.operation = manageService.getOperation() + " fishery";
         $scope.operationConfirm = manageService.getOperation() + " item";
         $scope.fishery = manageService.getFishery();
@@ -35,6 +67,23 @@ app.controller('ManageFisheryController', ['$mdDialog', '$fisheryService', '$sco
                 }
             }
         };
+
+        this.openMap = function () {
+            manageService.setFishery($scope.fishery);
+            $scope.mapDialog = $mdDialog.show({
+                controller: 'ManageFisheryController',
+                controllerAs: 'ctrl',
+                templateUrl: 'templates/dialogs/manage-fishery-coordinates-dialog.html',
+                multiple: true,
+                clickOutsideToClose: true
+            });
+        };
+
+        this.confirmCoordinates = function () {
+            manageService.getFishery().lat = $scope.position.lat;
+            manageService.getFishery().lng = $scope.position.lng;
+            $mdDialog.hide();
+        }
     }]);
 app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', '$fisheryService', '$mdToast', 'manageService',
     function ($mdDialog, $q, $scope, $timeout, $fisheryService, $mdToast, manageService) {
@@ -127,7 +176,10 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
         }
 
         function openManageDialog(event) {
-            var fishery = (($scope.selected.length === 0) ? {} : JSON.parse(JSON.stringify($scope.selected[0])));
+            var fishery = (($scope.selected.length === 0) ? {
+                lat: 0,
+                lng: 0
+            } : JSON.parse(JSON.stringify($scope.selected[0])));
             if (fishery.coordinate != null) {
                 fishery.lat = fishery.coordinate.lat;
                 fishery.lng = fishery.coordinate.lng;

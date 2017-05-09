@@ -40,6 +40,8 @@
     </md-dialog-content>
 
     <md-dialog-actions>
+        <md-button class="md-primary" ng-click="ctrl.openMap()" aria-label="Map" style="margin-right: auto;">Map
+        </md-button>
         <md-button class="md-primary" ng-click="ctrl.manageItem()" ng-disabled="form.$invalid"
                    ng-bind="operationConfirm" aria-label="Confirm"></md-button>
         <md-button class="md-primary" ng-click="ctrl.cancel()" aria-label="Cancel">Cancel</md-button>
