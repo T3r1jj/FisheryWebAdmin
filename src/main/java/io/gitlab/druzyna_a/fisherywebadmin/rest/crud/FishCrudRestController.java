@@ -1,9 +1,7 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest.crud;
 
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,43 +12,33 @@ import java.util.Map;
  * Created by Damian Terlecki on 04.05.17.
  */
 @RestController
-public class FishCrudRestController {
+@RequestMapping("/api/fishes")
+public class FishCrudRestController implements CrudRestApi {
 
     private static final String FISH_BASE_URL = "https://druzyna-a-crud.herokuapp.com/fish";
-    private static final String MAPPING_BASE_URL = "/api/fishes";
 
-    @RequestMapping(value = MAPPING_BASE_URL, method = RequestMethod.GET)
-    public @ResponseBody
-    String getFishes() {
+    @Override
+    public String getAll() {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(FISH_BASE_URL + "/list", String.class);
     }
 
-    @RequestMapping(value = MAPPING_BASE_URL + "/add", method = RequestMethod.POST)
-    public @ResponseBody
-    String addFish(@RequestBody String data) {
+    @Override
+    public String add(@RequestBody String data) {
         HttpEntity<String> entity = prepareJsonEntity(data);
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.postForObject(FISH_BASE_URL + "/create", entity, String.class);
     }
 
-    @RequestMapping(value = MAPPING_BASE_URL + "/update", method = RequestMethod.POST)
-    public @ResponseBody
-    String updateFish(@RequestBody String data) {
+    @Override
+    public String update(@RequestBody String data) {
         HttpEntity<String> entity = prepareJsonEntity(data);
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(FISH_BASE_URL + "/update", HttpMethod.PUT, entity, String.class).getBody();
     }
 
-    private HttpEntity<String> prepareJsonEntity(@RequestBody String data) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        return new HttpEntity<>(data, headers);
-    }
-
-    @RequestMapping(value = MAPPING_BASE_URL + "/delete", method = RequestMethod.GET)
-    public @ResponseBody
-    String deleteFish(@RequestParam int id) {
+    @Override
+    public String delete(@RequestParam int id) {
         Map<String, String> args = new HashMap<>();
         args.put("id", String.valueOf(id));
         RestTemplate restTemplate = new RestTemplate();

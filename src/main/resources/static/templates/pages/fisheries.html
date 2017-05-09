@@ -81,7 +81,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fishery"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fishery in managedFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fishery in fisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell ng-bind="fishery.name"></td>
                                         <td md-cell ng-bind="fishery.lat"></td>
                                         <td md-cell ng-bind="fishery.lng"></td>
@@ -94,7 +94,7 @@
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
                                                  md-page="query.page"
-                                                 md-total="{{managedFisheries.length}}" md-page-select="options.pageSelect"
+                                                 md-total="{{fisheries.length}}" md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
                         </md-card-content>
                     </md-card>
@@ -169,7 +169,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fishery"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fishery in fisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fishery in scrapedFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell ng-bind="fishery.name"></td>
                                         <td md-cell ng-bind="fishery.coordinate.lat"></td>
                                         <td md-cell ng-bind="fishery.coordinate.lng"></td>
@@ -182,7 +182,8 @@
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
                                                  md-page="query.page"
-                                                 md-total="{{fisheries.length}}" md-page-select="options.pageSelect"
+                                                 md-total="{{scrapedFisheries.length}}"
+                                                 md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
                         </md-card-content>
                     </md-card>

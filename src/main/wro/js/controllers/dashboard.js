@@ -41,7 +41,7 @@ app.controller('DashboardController', ['$scope', '$articleService', '$fishServic
         $fishService.fishes.query().$promise.then(function (articles) {
             $scope.managedStats.push({name: "Fishes", value: articles.length});
         });
-        $fisheryService.managedFisheries.query().$promise.then(function (fisheries) {
+        $fisheryService.fisheries.query().$promise.then(function (fisheries) {
             $scope.managedStats.push({name: "Fisheries", value: fisheries.length});
             var icon = {
                 iconUrl: 'css/images/marker-icon.png',

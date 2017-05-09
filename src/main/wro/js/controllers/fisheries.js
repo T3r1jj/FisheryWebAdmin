@@ -29,9 +29,9 @@ app.controller('ManageFisheryController', ['$mdDialog', '$fisheryService', '$sco
 
             if ($scope.form.$valid) {
                 if (manageService.getOperation() === "Update") {
-                    $fisheryService.updateRsiFishery.put($scope.fishery, success, failure);
+                    $fisheryService.updateFishery.save($scope.fishery, success, failure);
                 } else {
-                    $fisheryService.addRsiFishery.save($scope.fishery, success, failure);
+                    $fisheryService.addFishery.save($scope.fishery, success, failure);
                 }
             }
         };
@@ -73,8 +73,8 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             $scope.query.filter = '';
         };
 
+        $scope.scrapedFisheries = [];
         $scope.fisheries = [];
-        $scope.managedFisheries = [];
 
         $scope.toggleLimitOptions = function () {
             $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
@@ -82,9 +82,9 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
 
         $scope.loadData = function () {
             if ($scope.data.selectedIndex === 0) {
-                $scope.promise = $fisheryService.managedFisheries.query(managedFisheriesSuccessFetch, failure).$promise;
+                $scope.promise = $fisheryService.fisheries.query(fisheriesSuccessFetch, failure).$promise;
             } else {
-                $scope.promise = $fisheryService.fisheries.query({countryCode: $scope.country.selected.code}, fisheriesSuccessFetch, failure).$promise;
+                $scope.promise = $fisheryService.scrapedFisheries.query({countryCode: $scope.country.selected.code}, scrapedFisheriesSuccessFetch, failure).$promise;
             }
         };
 
@@ -93,8 +93,8 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             $scope.selected = [];
         }
 
-        function managedFisheriesSuccessFetch(fisheries) {
-            $scope.managedFisheries = fisheries;
+        function scrapedFisheriesSuccessFetch(fisheries) {
+            $scope.scrapedFisheries = fisheries;
             $scope.selected = [];
         }
 
@@ -119,15 +119,15 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
                 .ok('Yes')
                 .cancel('No');
             $mdDialog.show(confirm).then(function () {
-                $fisheryService.deleteRsiFishery.delete({id: $scope.selected[0].id}, loadManagedData, failure);
+                $fisheryService.deleteFishery.get({id: $scope.selected[0].id}, loadManagedData, failure);
             });
         };
 
         function loadManagedData() {
             if ($scope.data === undefined || $scope.data.selectedIndex === 0) {
-                $scope.promise = $fisheryService.managedFisheries.query(managedFisheriesSuccessFetch).$promise;
+                $scope.promise = $fisheryService.fisheries.query(fisheriesSuccessFetch).$promise;
             } else {
-                $fisheryService.managedFisheries.query(managedFisheriesSuccessFetch);
+                $fisheryService.fisheries.query(fisheriesSuccessFetch);
             }
         }
 

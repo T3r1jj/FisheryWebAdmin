@@ -104,13 +104,11 @@ app.factory('$fishService', ['$resource', function ($resource) {
 app.factory('$fisheryService', ['$resource', function ($resource) {
     'use strict';
     return {
-        fisheries: $resource('https://fishery-knowledge-base.herokuapp.com/fishery'),
-        managedFisheries: $resource('https://druzyna-a-crud.herokuapp.com/fishery/list'),
-        addRsiFishery: $resource('https://druzyna-a-crud.herokuapp.com/fishery/create'),
-        deleteRsiFishery: $resource('https://druzyna-a-crud.herokuapp.com/fishery/:id', {id: "@id"}),
-        updateRsiFishery: $resource('https://druzyna-a-crud.herokuapp.com/fishery/update', {}, {
-            put: {method: 'PUT'}
-        })
+        scrapedFisheries: $resource('https://fishery-knowledge-base.herokuapp.com/fishery'),
+        fisheries: $resource('/api/fisheries'),
+        addFishery: $resource('/api/fisheries/create'),
+        deleteFishery: $resource('/api/fisheries/delete'),
+        updateFishery: $resource('/api/fisheries/update')
     };
 }]);
 
