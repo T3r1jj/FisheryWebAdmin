@@ -1,4 +1,4 @@
-# FisheryWebAdmin
+# ![asd](src/main/resources/static/assets/favicon-32x32.png) FisheryWebAdmin 
 FisheryWebAdmin is a web app written in Java that provides user interface for admin access to Fishery project services. The app is based on Spring Boot + AngularJS + Material Design.
 
 The admin interface gives access to CRUD web service and allows to integrate-and-edit some data from KnowledgeBase. Remaining integration (like weather and fish existence check which can be fully automated) is done by other modules.   
