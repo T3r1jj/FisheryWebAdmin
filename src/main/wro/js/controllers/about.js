@@ -76,6 +76,12 @@ app.controller('AboutController', ['$scope', '$http', function ($scope, $http) {
             license: "MIT",
             link: "https://github.com/textAngular/textAngular"
         },
+        "angular-joyride": {
+            name: "angular-joyride - a simple joyride directive for angular",
+            author: "Copyright (c) 2016 Ahmed Wagdi",
+            license: "MIT",
+            link: "https://github.com/ahmed-wagdi/angular-joyride"
+        },
         wro4j: {
             name: "wro4j - a web resource optimizer",
             author: "https://github.com/wro4j/wro4j",

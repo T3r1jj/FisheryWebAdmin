@@ -18,7 +18,7 @@
         </md-tab>
     </md-tabs>
 
-    <md-button aria-label="Help" class="md-fab md-warn md-fab-bottom-right"
+    <md-button aria-label="Help" class="md-fab md-accent md-fab-bottom-right"
                ng-click="startHelp($event)" ng-controller="HelpController">
         <md-tooltip md-direction="bottom">
             Help
@@ -39,7 +39,7 @@
                  md-swipe-right="previous()"
                  layout="row" layout-align="center center">
                 <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
-                    <md-card layout="row" flex>
+                    <md-card layout="row" flex id="search1">
                         <md-card-content class="md-cut-card-content" layout="row">
                             <md-input-container md-theme="search" class="md-input-container-search">
                                 <label for="query-search">Search</label>
@@ -51,7 +51,7 @@
                             </md-button>
                         </md-card-content>
                     </md-card>
-                    <md-card layout="row" flex>
+                    <md-card layout="row" flex id="table1">
                         <md-card-content class="md-cut-card-content">
                             <md-toolbar class="md-table-toolbar md-default">
                                 <div class="md-toolbar-tools">
@@ -118,7 +118,7 @@
                  md-swipe-right="previous()"
                  layout="row" layout-align="center center">
                 <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
-                    <md-card layout="row" flex>
+                    <md-card layout="row" flex id="search2">
                         <md-card-content class="md-cut-card-content" layout="row">
                             <md-input-container md-theme="search" style="margin-bottom: 0">
                                 <label>Country</label>
@@ -139,13 +139,14 @@
                             </md-button>
                         </md-card-content>
                     </md-card>
-                    <md-card layout="row" flex>
+                    <md-card layout="row" flex id="table2">
                         <md-card-content class="md-cut-card-content" layout="column">
                             <md-toolbar class="md-table-toolbar md-default">
                                 <div class="md-toolbar-tools">
                                     <span>Fish names</span>
                                     <div flex></div>
-                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data"
+                                               id="refresh">
                                         <md-icon ng-md-icon icon="refresh" class="md-icon-refresh"></md-icon>
                                     </md-button>
                                 </div>
@@ -197,7 +198,7 @@
 <md-fab-speed-dial md-open="demo.isOpen" md-direction="up" class="md-fab-bottom-right"
                    ng-class="open">
     <md-fab-trigger style="display: none;"></md-fab-trigger>
-    <md-fab-actions>
+    <md-fab-actions id="fab">
         <md-button aria-label="Delete" class="md-fab md-primary" ng-click="deleteItem($event)"
                    ng-show="options.rowSelection && selected.length && !data.selectedIndex">
             <md-tooltip md-direction="left" ng-hide="data.selectedIndex || !selected.length">

@@ -266,4 +266,5 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
         }
 
         loadManagedData();
+        $scope.knowledgeBasePromise = $articleService.articlesRequests.query(articlesRequestsSuccess, failure).$promise;
     }]);
