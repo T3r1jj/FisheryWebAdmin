@@ -22,7 +22,9 @@
         </div>
     </md-toolbar>
     <md-list style="height: 100%" layout="column">
-        <md-list-item ng-repeat="item in menu" ng-click="go(item)" ng-class="{selectedIndex: selectedIndex===-1}">
+        <!--suppress XmlDuplicatedId -->
+        <md-list-item ng-repeat="item in menu" ng-click="go(item)" ng-class="{selectedIndex: selectedIndex===-1}"
+                      id="{{item.title}}">
             <a>
                 <md-item-content md-ink-ripple layout="row" layout-align="start center">
                     <div class="inset">
@@ -35,7 +37,9 @@
         </md-list-item>
         <md-divider></md-divider>
         <md-subheader>Management</md-subheader>
-        <md-list-item ng-repeat="item in admin" ng-click="go(item)" ng-class="{selectedIndex: selectedIndex===$index}">
+        <!--suppress XmlDuplicatedId -->
+        <md-list-item ng-repeat="item in admin" ng-click="go(item)" ng-class="{selectedIndex: selectedIndex===$index}"
+                      id="{{item.title}}">
             <a>
                 <md-item-content md-ink-ripple layout="row" layout-align="start center">
                     <div class="inset">
@@ -48,7 +52,7 @@
         </md-list-item>
         <md-divider flex></md-divider>
         <md-divider></md-divider>
-        <md-list-item ng-click="go(about)" ng-class="{selectedIndex: selectedIndex===-2}">
+        <md-list-item ng-click="go(about)" ng-class="{selectedIndex: selectedIndex===-2}" id="{{about.title}}">
             <a>
                 <md-item-content md-ink-ripple layout="row" layout-align="start center">
                     <div class="inset">
@@ -64,6 +68,9 @@
 
 <ng-view layout="column" class="relative" layout-fill role="main">
 </ng-view>
+
+<joyride></joyride>
+
 <script src="js/app.js"></script>
 </body>
 </html>

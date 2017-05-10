@@ -1,5 +1,6 @@
 @gray: #eaeaea;
-
+@accent: #ee6666;
+@primary: rgb(63, 81, 181);
 .social-button-label {
   padding-left: 4px;
 }
@@ -174,6 +175,7 @@ md-grid-tile div {
 .md-tiles-subheader {
   color: black;
   background: lightgray;
+  z-index: 1;
 }
 
 .top-spacing {
@@ -186,4 +188,34 @@ md-grid-tile div {
 
 .md-avatar.vCenter {
   margin: auto 24px auto 8px;
+}
+
+.md-button.md-fab.md-fab-bottom-right {
+  top: auto;
+  bottom: -31px;
+}
+
+md-list-item .jr_container {
+  max-width: 200px;
+}
+
+md-list-item.jr_target {
+  background: #ffffaa;
+}
+
+md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+  color: @accent;
+  background: @accent;
+}
+
+.jr_container .jr_right_buttons .jr_button {
+  background: @primary;
+}
+
+.md-accent {
+  background: @accent;
+}
+
+.jr_overlay_show .jr_overlay {
+  left: 0;
 }

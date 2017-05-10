@@ -17,6 +17,13 @@
             Knowledge Base
         </md-tab>
     </md-tabs>
+    <md-button aria-label="Help" class="md-fab md-warn md-fab-bottom-right"
+               ng-click="startHelp($event)" ng-controller="HelpController">
+        <md-tooltip md-direction="bottom">
+            Help
+        </md-tooltip>
+        <md-icon ng-md-icon icon="help"></md-icon>
+    </md-button>
 </md-toolbar>
 
 <md-content flex md-scroll-y>

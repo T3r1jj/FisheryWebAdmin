@@ -9,10 +9,12 @@
         <group-ref>md-data-table</group-ref>
         <group-ref>textAngular</group-ref>
         <group-ref>leaflet</group-ref>
+        <group-ref>joyride</group-ref>
         <css>/css/tables.css</css>
         <js>/js/constants.js</js>
         <js>/js/app.js</js>
         <js>/js/services.js</js>
+        <js>/js/controllers/help.js</js>
         <js>/js/controllers/dashboard.js</js>
         <js>/js/controllers/articles.js</js>
         <js>/js/controllers/fishes.js</js>
@@ -49,5 +51,9 @@
         <js>/leaflet/ui-leaflet-2.0.0/angular-simple-logger.min.js</js>
         <js>/leaflet/ui-leaflet-2.0.0/ui-leaflet.min.js</js>
         <css>/leaflet/leaflet.css</css>
+    </group>
+    <group name="joyride">
+        <css>/joyride/joyride.min.css</css>
+        <js>/joyride/joyride.js</js>
     </group>
 </groups>

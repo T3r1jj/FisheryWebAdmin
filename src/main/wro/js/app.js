@@ -36,7 +36,7 @@ const MENU_ITEMS = [
         controller: 'FisheriesController',
         index: 2
     }];
-var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table', 'textAngular', 'ui-leaflet']);
+var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table', 'textAngular', 'ui-leaflet', 'angular-joyride']);
 app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
 }]);
@@ -96,6 +96,12 @@ app.controller('ApplicationController', ['$scope', '$mdSidenav', '$http', '$loca
 
         $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
+        };
+        $scope.openSidenav = function (menuId) {
+            $mdSidenav(menuId || 'left').open();
+        };
+        $scope.closeSidenav = function (menuId) {
+            $mdSidenav(menuId || 'left').close();
         };
         $scope.menu = [{
             link: MENU_ITEMS[1].link,
