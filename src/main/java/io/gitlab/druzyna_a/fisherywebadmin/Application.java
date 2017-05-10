@@ -55,30 +55,45 @@ public class Application extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    OAuth2ClientContext oauth2ClientContext;
+    private OAuth2ClientContext oauth2ClientContext;
     @Value("${login.group}")
-    String loginGroup;
+    private String loginGroup;
+    @Value("${login.enable}")
+    private boolean enableLogin;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**", "/index.html")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and().logout().logoutSuccessUrl("/").permitAll()
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+        if (enableLogin) {
+            http
+                    .antMatcher("/**")
+                    .authorizeRequests()
+                    .antMatchers("/", "/login**", "/webjars/**", "/index.html", "/assets/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                    .and().logout().logoutSuccessUrl("/").permitAll()
+                    .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+        } else {
+            http
+                    .antMatcher("/**")
+                    .authorizeRequests()
+                    .antMatchers("/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                    .and().logout().logoutSuccessUrl("/").permitAll()
+                    .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+        }
     }
 
     private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(google(), "/login/google"));
-        filters.add(ssoFilter(github(), "/login/github"));
         filters.add(ssoFilter(gitlab(), "/login/gitlab"));
+        filters.add(ssoFilter(github(), "/login/github"));
+        filters.add(ssoFilter(google(), "/login/google"));
         filter.setFilters(filters);
         return filter;
     }

@@ -46,5 +46,9 @@ angular.module('app', ['ngMaterial', 'ngMdIcons'])
                 console.log('Logout failed');
                 self.authenticated = false;
             });
+        };
+        
+        self.reloadPage = function () {
+            $window.location.href = "/";
         }
     });

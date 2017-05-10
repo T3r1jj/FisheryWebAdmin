@@ -73,7 +73,7 @@ app.controller('ApplicationController', ['$scope', '$mdSidenav', '$http', '$loca
         $http.get("/user").then(function (response) {
             $scope.user.name = response.data.user.name;
             $scope.user.email = response.data.user.email;
-            $scope.user.picture = response.data.user.picture;
+            $scope.user.picture = response.data.user.picture || $scope.user.picture;
         }, function (result) {
             $scope.user.name = "N/A";
             $scope.user.email = "N/A";

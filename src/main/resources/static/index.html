@@ -3,6 +3,11 @@
 <head>
     <title>Fishery Web Admin</title>
     <link href="css/index.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <meta charset="utf-8"/>
+    <meta name="author" content="Damian Terlecki">
+    <meta name="keywords" content="Fishery,Admin,Web,Services">
+    <meta name="description" content="Admin interface for RSI Fishery project">
 </head>
 
 <body ng-app="app" ng-controller="IndexController as index" ng-cloak>
@@ -14,16 +19,10 @@
         <br/>
         <br/>
         <div layout="row" layout-align="center">
-            <md-button href="/login/google" class="md-raised md-cornered index-button" disabled>
-                <md-icon ng-md-icon icon="google-plus" style="fill: #d34836"></md-icon>
-                <span class="social-button-label">Sign in with Google</span>
-            </md-button>
-        </div>
-        <br/>
-        <div layout="row" layout-align="center">
-            <md-button href="/login/github" class="md-raised md-cornered index-button">
-                <md-icon ng-md-icon icon="github-circle" style="fill: #333"></md-icon>
-                <span class="social-button-label">Sign in with GitHub</span>
+            <md-button ng-click="index.reloadPage()"
+                       class="md-raised md-cornered index-button">
+                <md-icon ng-md-icon icon="login"></md-icon>
+                <span class="social-button-label">Sign in as Guest</span>
             </md-button>
         </div>
         <br/>
@@ -33,13 +32,27 @@
                 <span class="social-button-label">Sign in with GitLab</span>
             </md-button>
         </div>
+        <br/>
+        <div layout="row" layout-align="center">
+            <md-button href="/login/github" class="md-raised md-cornered index-button" disabled>
+                <md-icon ng-md-icon icon="github-circle" style="fill: #333"></md-icon>
+                <span class="social-button-label">Sign in with GitHub</span>
+            </md-button>
+        </div>
+        <br/>
+        <div layout="row" layout-align="center">
+            <md-button href="/login/google" class="md-raised md-cornered index-button" disabled>
+                <md-icon ng-md-icon icon="google-plus" style="fill: #d34836"></md-icon>
+                <span class="social-button-label">Sign in with Google</span>
+            </md-button>
+        </div>
     </div>
     <div layout="column" layout-align="center center" ng-show="index.authenticated">
         <div layout="row" layout-align="center">
             <h4>Logged in as: <b><span ng-bind="index.user"> </span></b></h4>
         </div>
         <div layout="row" layout-align="center">
-            You will be redirected to the main page in&nbsp;<span ng-bind="index.redirectSec"></span>&nbsp;sec...
+            You will be redirected to the dashboard page in&nbsp;<span ng-bind="index.redirectSec"></span>&nbsp;sec...
         </div>
         <br/>
         <br/>
