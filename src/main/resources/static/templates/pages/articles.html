@@ -72,10 +72,10 @@
                             <md-table-container>
                                 <table md-table md-row-select="true" multiple="{{options.multiSelect}}"
                                        ng-model="selected" md-progress="crudPromise">
-                                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order.articles">
                                     <tr md-row>
                                         <th md-column md-order-by="title"><span>Title</span></th>
-                                        <th md-column md-order-by="time"><span>Author</span></th>
+                                        <th md-column md-order-by="author"><span>Author</span></th>
                                     </tr>
                                     </thead>
                                     <tbody md-body>
@@ -142,7 +142,7 @@
                             <md-table-container>
                                 <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
                                        ng-model="selected" md-progress="knowledgeBasePromise">
-                                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order.articlesRequests">
                                     <tr md-row>
                                         <th md-column md-order-by="id"><span>Id</span></th>
                                         <th md-column md-order-by="time"><span>Time</span>
@@ -152,7 +152,7 @@
                                         </th>
                                         <th md-column><span>Tags</span>
                                         </th>
-                                        <th md-column md-numeric style="text-align: left;">
+                                        <th md-column md-numeric md-order-by="requiredTagsCount" style="text-align: left;">
                                             <span>Required<br/>tags</span>
                                         </th>
                                         <th md-column md-order-by="quick"><span>Quick</span>
@@ -163,7 +163,7 @@
                                     </thead>
                                     <tbody md-body>
                                     <tr md-row md-select="articlesRequest"
-                                        ng-click="openRequest(articlesRequest.id)"
+                                        ng-click="articlesRequest.scraped ? openRequest(articlesRequest.id) : null"
                                         md-auto-select="options.autoSelect"
                                         ng-repeat="articlesRequest in articlesRequests | filter: query.filter | orderBy: query.order.articlesRequests | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell ng-bind="articlesRequest.id" style="word-break: break-all"></td>

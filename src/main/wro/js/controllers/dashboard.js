@@ -34,7 +34,7 @@ app.controller('DashboardController', ['$scope', '$articleService', '$fishServic
             $scope.knowledgeBaseStats.push({name: "Scraped requests", value: value});
             value = articles.length - scrapedCount;
             if (articles.length !== 0) {
-                value += " (" + Math.round(scrapedCount * 100 / articles.length) + " %)";
+                value += " (" + Math.round((articles.length - scrapedCount) * 100 / articles.length) + " %)";
             }
             $scope.knowledgeBaseStats.push({name: "Pending requests", value: value});
         });
