@@ -1,13 +1,16 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -52,7 +55,7 @@ public class UserRestController {
 
     @RequestMapping(path = "/api/admins/count")
     public @ResponseBody
-    String getUsers() {
+    String getAdminsCount() {
         String result;
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -68,8 +71,58 @@ public class UserRestController {
             }
             result = String.valueOf(count);
         } catch (Exception e) {
-            result = "Unauthorized";
+            result = "\"Unauthorized\"";
         }
         return "{\"count\": " + result + "}";
+    }
+
+    @RequestMapping(path = "/api/users/count")
+    public @ResponseBody
+    String getUsersCount() {
+        String result = "\"over 9000\"";
+        RestTemplate restTemplate = new RestTemplate();
+//        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
+        return "{\"count\": " + result + "}";
+    }
+
+    @RequestMapping(path = "/api/users")
+    public @ResponseBody
+    String getUsers() {
+        RestTemplate restTemplate = new RestTemplate();
+//        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
+        return "[{\"name\": \"string\", \"email\": \"testmail\"}]";
+    }
+
+    @RequestMapping(path = "/api/reservations")
+    public @ResponseBody
+    String getReservations() {
+        RestTemplate restTemplate = new RestTemplate();
+//        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
+        return "[{\"name\": \"string\", \"user\": \"an user\", \"email\": \"testmail\"}]";
+    }
+
+    @RequestMapping(path = "/api/reservations/delete")
+    public @ResponseBody
+    String deleteReservation(@RequestParam int id) {
+        Map<String, String> args = new HashMap<>();
+        args.put("id", String.valueOf(id));
+        RestTemplate restTemplate = new RestTemplate();
+        return "true";
+//        return restTemplate.exchange("/{id}", HttpMethod.DELETE, null, String.class, args).getBody();
+    }
+
+    @RequestMapping(path = "/api/emails/add")
+    public @ResponseBody
+    String addEmail(@RequestBody String data) {
+        HttpEntity<String> entity = prepareJsonEntity(data);
+        RestTemplate restTemplate = new RestTemplate();
+        return "true";
+//        return restTemplate.postForObject("IDK", entity, String.class);
+    }
+
+    private HttpEntity<String> prepareJsonEntity(@RequestBody String data) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        return new HttpEntity<>(data, headers);
     }
 }

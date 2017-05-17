@@ -13,6 +13,7 @@ public class ViewController {
             "/dashboard",
             "/fishes",
             "/fisheries",
+            "/users",
             "/about"
     })
     public String index() {

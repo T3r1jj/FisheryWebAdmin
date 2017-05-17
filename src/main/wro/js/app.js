@@ -35,6 +35,13 @@ const MENU_ITEMS = [
         templateUrl: 'templates/pages/fisheries.html',
         controller: 'FisheriesController',
         index: 2
+    }, {
+        link: '/users',
+        title: 'Users',
+        icon: 'group',
+        templateUrl: 'templates/pages/users.html',
+        controller: 'UsersController',
+        index: 3
     }];
 var app = angular.module('Application', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngResource', 'ngMessages', 'ngAnimate', 'md.data.table', 'textAngular', 'ui-leaflet', 'angular-joyride']);
 app.config(['$qProvider', function ($qProvider) {

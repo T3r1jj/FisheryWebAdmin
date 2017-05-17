@@ -1,0 +1,36 @@
+<md-dialog flex-gt-sm="70" flex-gt-md="50">
+    <md-dialog-content class="md-dialog-content">
+
+        <h2 class="md-title">Create an email</h2>
+
+        <p ng-if="form.$submitted && form.$invalid" class="md-warn" layout="row" layout-align="start center">
+            <span class="error-label">*&nbsp; Please fill in required fields.</span>
+        </p>
+
+        <form name="form" ng-submit="ctrl.addItem()">
+            <div layout="row" class="input-row">
+                <md-input-container flex style="margin-bottom: -1.5em">
+                    <label for="title">Title</label>
+                    <input id="title" name="tagsCount"
+                           ng-model="email.title" required>
+                </md-input-container>
+            </div>
+            <div layout="row" class="input-row" style="background-color: #fff">
+                <md-input-container flex style="margin-top: 0">
+                    <div text-angular ta-toolbar-class="btn-toolbar" ta-toolbar-group-class="btn-group"
+                         ta-toolbar-button-class="md-raised md-cornered toolbar-button"
+                         ta-toolbar-active-button-class="active" aria-label="Text Editor"
+                         ta-toolbar="[['h1','h3','h6', 'p', 'quote','bold','italics','justifyLeft','justifyCenter', 'justifyFull', 'insertLink','insertImage','insertVideo','html']]"
+                         ng-model="email.body"></div>
+                </md-input-container>
+            </div>
+        </form>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="ctrl.sendEmail()" ng-disabled="form.$invalid" aria-label="Confirm">Send
+        </md-button>
+        <md-button class="md-primary" ng-click="ctrl.cancel()" aria-label="Cancel">Cancel</md-button>
+    </md-dialog-actions>
+
+</md-dialog>

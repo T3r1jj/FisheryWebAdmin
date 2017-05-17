@@ -86,6 +86,9 @@ app.controller('DashboardController', ['$scope', '$articleService', '$fishServic
         $userService.adminsCount.get().$promise.then(function (result) {
             $scope.userStats.admin.value = result.count;
         });
+        $userService.usersCount.get().$promise.then(function (result) {
+            $scope.userStats.user.value = result.count;
+        });
 
         $timeout(function () {
             leafletData.getMap().then(function (map) {

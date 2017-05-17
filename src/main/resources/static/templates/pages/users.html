@@ -1,0 +1,195 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+            <md-icon ng-md-icon icon="menu"></md-icon>
+        </md-button>
+        <h3 ng-bind="title"></h3>
+        <span flex></span>
+        <md-button aria-label="Logout" ng-click="logout()">
+            <md-icon ng-md-icon icon="logout"></md-icon>
+        </md-button>
+    </div>
+    <md-tabs md-stretch-tabs class="md-primary" md-selected="data.selectedIndex">
+        <md-tab id="tab1" aria-controls="tab1-content">
+            Users
+        </md-tab>
+        <md-tab id="tab2" aria-controls="tab2-content">
+            Fishery reservations
+        </md-tab>
+    </md-tabs>
+    <md-button aria-label="Help" class="md-fab md-accent md-fab-bottom-right"
+               ng-click="startHelp($event)" ng-controller="HelpController">
+        <md-tooltip md-direction="bottom">
+            Help
+        </md-tooltip>
+        <md-icon ng-md-icon icon="help"></md-icon>
+    </md-button>
+</md-toolbar>
+
+<md-content flex md-scroll-y>
+    <ui-view layout="column" layout-fill layout-padding>
+        <div class="inset" hide-sm></div>
+        <ng-switch on="data.selectedIndex" class="tabpanel-container">
+            <div role="tabpanel"
+                 id="tab1-content"
+                 aria-labelledby="tab1"
+                 ng-switch-when="0"
+                 md-swipe-left="next()"
+                 md-swipe-right="previous()"
+                 layout="row" layout-align="center center">
+                <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
+                    <md-card layout="row" flex id="search1">
+                        <md-card-content class="md-cut-card-content" layout="row">
+                            <md-input-container md-theme="search" class="md-input-container-search">
+                                <label for="query-search">Search</label>
+                                <input id="query-search" flex ng-model="query.filter">
+                            </md-input-container>
+                            <md-button class="md-icon-button md-icon-button-clear-filter" ng-click="removeFilter()"
+                                       aria-label="Remove search filter">
+                                <md-icon ng-md-icon icon="close"></md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                    <md-card layout="row" flex id="table1">
+                        <md-card-content class="md-cut-card-content">
+                            <md-toolbar class="md-table-toolbar md-default">
+                                <div class="md-toolbar-tools">
+                                    <span>Users</span>
+                                    <div flex></div>
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data">
+                                        <md-icon ng-md-icon class="md-icon-refresh" icon="refresh"></md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
+
+                            <md-toolbar class="md-table-toolbar alternate"
+                                        ng-show="selected.length">
+                                <div class="md-toolbar-tools">
+                                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                                </div>
+                            </md-toolbar>
+
+                            <md-table-container>
+                                <table md-table md-row-select="true" multiple="{{options.multiSelect}}"
+                                       ng-model="selected" md-progress="usersPromise">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                                    <tr md-row>
+                                        <th md-column md-order-by="title"><span>User name</span></th>
+                                        <th md-column md-order-by="time"><span>Email</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row md-select="user"
+                                        md-auto-select="options.autoSelect"
+                                        ng-repeat="user in users | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        <td md-cell ng-bind="user.name"></td>
+                                        <td md-cell ng-bind="user.email" style="word-break: break-all"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
+                                                 md-page="query.page"
+                                                 md-total="{{users.length}}"
+                                                 md-page-select="options.pageSelect"
+                                                 md-boundary-links="options.boundaryLinks"></md-table-pagination>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </div>
+        </ng-switch>
+        <ng-switch on="data.selectedIndex" class="tabpanel-container">
+            <div role="tabpanel"
+                 id="tab2-content"
+                 aria-labelledby="tab2"
+                 ng-switch-when="1"
+                 md-swipe-left="next()"
+                 md-swipe-right="previous()"
+                 layout="row" layout-align="center center">
+                <div layout="column" layout-align="center center" flex-gt-sm="90" flex-gt-md="80">
+                    <md-card layout="row" flex id="search2">
+                        <md-card-content class="md-cut-card-content" layout="row">
+                            <md-input-container md-theme="search" class="md-input-container-search">
+                                <label for="query-search2">Search</label>
+                                <input id="query-search2" flex ng-model="query.filter">
+                            </md-input-container>
+                            <md-button class="md-icon-button md-icon-button-clear-filter" ng-click="removeFilter()"
+                                       aria-label="Remove search filter">
+                                <md-icon ng-md-icon icon="close"></md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                    <md-card layout="row" flex id="table2">
+                        <md-card-content class="md-cut-card-content" layout="column">
+                            <md-toolbar class="md-table-toolbar md-default">
+                                <div class="md-toolbar-tools">
+                                    <span>Fishery reservations</span>
+                                    <div flex></div>
+                                    <md-button class="md-icon-button" ng-click="loadData()" aria-label="Refresh data"
+                                               id="refresh">
+                                        <md-icon ng-md-icon icon="refresh" class="md-icon-refresh"></md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
+
+                            <md-toolbar class="md-table-toolbar alternate"
+                                        ng-show="options.rowSelection && selected.length">
+                                <div class="md-toolbar-tools">
+                                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                                </div>
+                            </md-toolbar>
+
+                            <md-table-container>
+                                <table md-table md-row-select="true" multiple="{{options.multiSelect}}"
+                                       ng-model="selected" md-progress="reservationsPromise">
+                                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                                    <tr md-row>
+                                        <th md-column md-order-by="name"><span>Fishery</span></th>
+                                        <th md-column md-order-by="user"><span>User name</span></th>
+                                        <th md-column md-order-by="email"><span>Email</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row md-select="reservation"
+                                        md-auto-select="options.autoSelect"
+                                        ng-repeat="reservation in reservations | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        <td md-cell ng-bind="reservation.name"></td>
+                                        <td md-cell ng-bind="reservation.user"></td>
+                                        <td md-cell ng-bind="reservation.email"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
+                                                 md-page="query.page"
+                                                 md-total="{{reservations.length}}"
+                                                 md-page-select="options.pageSelect"
+                                                 md-boundary-links="options.boundaryLinks"></md-table-pagination>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </div>
+        </ng-switch>
+    </ui-view>
+</md-content>
+
+<md-fab-speed-dial md-open="true" md-direction="up" class="md-fab-bottom-right">
+    <md-fab-trigger style="display: none;"></md-fab-trigger>
+    <md-fab-actions id="fab">
+        <md-button aria-label="Cancel" class="md-fab md-primary" ng-click="deleteItem($event)"
+                   ng-hide="!data.selectedIndex || !selected.length">
+            <md-tooltip md-direction="left" ng-hide="!data.selectedIndex || !selected.length">
+                Cancel reservation
+            </md-tooltip>
+            <md-icon ng-md-icon icon="cancel"></md-icon>
+        </md-button>
+        <md-button aria-label="Email" class="md-fab md-primary" ng-click="addItem($event)" ng-hide="!selected.length">
+            <md-tooltip md-direction="left" ng-hide="!selected.length">
+                Send an email
+            </md-tooltip>
+            <md-icon ng-md-icon icon="email"></md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>

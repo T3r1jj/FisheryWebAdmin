@@ -19,6 +19,7 @@
         <js>/js/controllers/articles.js</js>
         <js>/js/controllers/fishes.js</js>
         <js>/js/controllers/fisheries.js</js>
+        <js>/js/controllers/users.js</js>
         <js>/js/controllers/about.js</js>
     </group>
     <!--minimize-->

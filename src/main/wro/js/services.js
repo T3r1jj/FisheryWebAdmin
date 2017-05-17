@@ -8,6 +8,7 @@ app.service('manageService', function () {
     var articles = null;
     var article = null;
     var tags = null;
+    var users = null;
 
     var setOperation = function (manageOperation) {
         operation = manageOperation;
@@ -57,6 +58,14 @@ app.service('manageService', function () {
         fish = managedFish;
     };
 
+    var setUsers = function (usersWithEmail) {
+        users = usersWithEmail;
+    };
+
+    var getUsers = function () {
+        return users;
+    };
+
     return {
         setOperation: setOperation,
         getOperation: getOperation,
@@ -69,7 +78,9 @@ app.service('manageService', function () {
         setArticle: setArticle,
         getArticle: getArticle,
         setTags: setTags,
-        getTags: getTags
+        getTags: getTags,
+        setUsers: setUsers,
+        getUsers: getUsers
     };
 });
 app.factory('$articleService', ['$resource', function ($resource) {
@@ -125,6 +136,37 @@ app.factory('$statusService', ['$resource', function ($resource) {
 app.factory('$userService', ['$resource', function ($resource) {
     'use strict';
     return {
-        adminsCount: $resource('/api/admins/count')
+        adminsCount: $resource('/api/admins/count'),
+        usersCount: $resource('/api/users/count'),
+        users: $resource('/api/users'),
+        sendEmail: $resource('/api/emails/add'),
+        reservations: $resource('/api/reservations'),
+        cancelReservation: $resource('/api/reservations/delete')
     };
 }]);
+
+app.config(function ($provide) {
+    $provide.decorator('taTools', ['$delegate', function (taTools) {
+        delete taTools.quote.iconclass;
+        taTools.quote.display = '<button><md-icon ng-md-icon icon="format_quote"></md-icon></button>';
+        delete taTools.bold.iconclass;
+        taTools.bold.display = '<button><md-icon ng-md-icon icon="format_bold"></md-icon></button>';
+        delete taTools.italics.iconclass;
+        taTools.italics.display = '<button><md-icon ng-md-icon icon="format_italic"></md-icon></button>';
+        delete taTools.justifyLeft.iconclass;
+        taTools.justifyLeft.display = '<button><md-icon ng-md-icon icon="format_align_left"></md-icon></button>';
+        delete taTools.justifyCenter.iconclass;
+        taTools.justifyCenter.display = '<button><md-icon ng-md-icon icon="format_align_center"></md-icon></button>';
+        delete taTools.justifyFull.iconclass;
+        taTools.justifyFull.display = '<button><md-icon ng-md-icon icon="format_align_justify"></md-icon></button>';
+        delete taTools.insertLink.iconclass;
+        taTools.insertLink.display = '<button><md-icon ng-md-icon icon="insert_link"></md-icon></button>';
+        delete taTools.insertVideo.iconclass;
+        taTools.insertVideo.display = '<button><md-icon ng-md-icon icon="video_library"></md-icon></button>';
+        delete taTools.insertImage.iconclass;
+        taTools.insertImage.display = '<button><md-icon ng-md-icon icon="insert_photo"></md-icon></button>';
+        delete taTools.html.iconclass;
+        taTools.html.display = '<button><md-icon ng-md-icon icon="code"></md-icon></button>';
+        return taTools;
+    }]);
+});

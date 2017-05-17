@@ -29,7 +29,9 @@ public class StatusRestController {
     @RequestMapping(value = MAPPING_BASE_URL + "/client", method = RequestMethod.GET)
     public @ResponseBody
     String isClientUp() {
-        return "{\"status\": \"down\"}";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getForObject("http://andrzej1993-001-site1.itempurl.com/swagger/ui/index", String.class);
+        return "{\"status\": \"up\"}";
     }
 
     @RequestMapping(value = MAPPING_BASE_URL + "/knowledge_base", method = RequestMethod.GET)
