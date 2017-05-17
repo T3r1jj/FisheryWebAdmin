@@ -31,3 +31,14 @@ gitlab:
     clientAuthenticationScheme: form
   resource:
     userInfoUri: https://gitlab.com/api/v4/user
+spring:
+    mail:
+       host: smtp.gmail.com
+       port: 587
+       username: movierental.terlecki
+       password: plotka123
+       properties.mail.smtp:
+                 auth: true
+                 starttls.enable: true
+       protocol: smtp
+       default-encoding: UTF-8

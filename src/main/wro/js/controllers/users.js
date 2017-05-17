@@ -92,7 +92,7 @@ app.controller('UsersController', ['$mdDialog', '$q', '$scope', '$timeout', '$us
                 controllerAs: 'ctrl',
                 targetEvent: event,
                 templateUrl: 'templates/dialogs/create-email-dialog.html'
-            }).then($scope.loadData);
+            });
         };
         $scope.deleteItem = function (event) {
             var confirm = $mdDialog.confirm()

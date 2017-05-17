@@ -1,11 +1,16 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -15,12 +20,15 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by Damian Terlecki on 06.05.17.
  */
 @RestController
 public class UserRestController {
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Value("${login.enable}")
     private boolean enableLogin;
@@ -98,7 +106,7 @@ public class UserRestController {
     String getReservations() {
         RestTemplate restTemplate = new RestTemplate();
 //        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
-        return "[{\"name\": \"string\", \"user\": \"an user\", \"email\": \"testmail\"}]";
+        return "[{\"name\": \"string\", \"user\": \"an user\", \"email\": \"movierental.terlecki@gmail.com\"}]";
     }
 
     @RequestMapping(path = "/api/reservations/delete")
@@ -113,16 +121,15 @@ public class UserRestController {
 
     @RequestMapping(path = "/api/emails/add")
     public @ResponseBody
-    String addEmail(@RequestBody String data) {
-        HttpEntity<String> entity = prepareJsonEntity(data);
-        RestTemplate restTemplate = new RestTemplate();
-        return "true";
-//        return restTemplate.postForObject("IDK", entity, String.class);
-    }
-
-    private HttpEntity<String> prepareJsonEntity(@RequestBody String data) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        return new HttpEntity<>(data, headers);
+    void addEmail(@RequestBody String emailJson) throws JSONException {
+        JSONObject email = new JSONObject(emailJson);
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setFrom("movierental.terlecki@gmail.com");
+            messageHelper.setTo(email.getString("email"));
+            messageHelper.setSubject(email.getString("title"));
+            messageHelper.setText(email.getString("body"), true);
+        };
+        mailSender.send(messagePreparator);
     }
 }
