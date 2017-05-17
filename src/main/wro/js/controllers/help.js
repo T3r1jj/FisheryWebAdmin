@@ -142,7 +142,7 @@ app.controller('HelpController', ['$scope', '$rootScope', 'joyrideService', '$an
                     type: 'element',
                     selector: '#table2',
                     title: 'Articles requests',
-                    content: 'The table contains articles requests. By pressing on scraped articles a dialog will open with a list of scraped articles. From there it is possible to edit and add them to managed data.',
+                    content: 'The table contains articles requests. By pressing on scraped articles a dialog will open with a list of scraped articles. From there it is possible to edit and add them to managed data. After estimated time scraped articles will be removed.',
                     placement: 'top'
                 },
                 {
@@ -150,7 +150,7 @@ app.controller('HelpController', ['$scope', '$rootScope', 'joyrideService', '$an
                     type: 'element',
                     selector: '#fab',
                     title: 'Add articles request',
-                    content: 'You can request articles by pressing this button and providing some basic information like tags.',
+                    content: 'You can request articles by pressing this button and providing some basic information like tags. The request will be queued and estimated time will be calculated.',
                     placement: 'left'
                 }]
         },
@@ -323,6 +323,68 @@ app.controller('HelpController', ['$scope', '$rootScope', 'joyrideService', '$an
                     title: 'Add managed fish',
                     content: 'Select a fishery and press this button to edit and add scraped data. Otherwise start adding an empty entry.',
                     placement: 'left'
+                }]
+        },
+
+        "Users": {
+            0: [
+                {
+                    title: "Users",
+                    content: 'On this page you can interact with users.'
+                },
+                {
+                    appendToBody: true,
+                    type: 'element',
+                    selector: '.md-tab.md-active',
+                    title: 'Client module',
+                    content: 'This tab is connected with the data from the Client service.',
+                    placement: 'bottom',
+                    scroll: false
+                },
+                {
+                    type: 'element',
+                    selector: '#search1',
+                    title: 'Search',
+                    content: 'Use search to find data faster.',
+                    placement: 'bottom'
+                },
+                {
+                    appendToBody: true,
+                    type: 'element',
+                    selector: '#table1',
+                    title: 'Emails',
+                    content: 'Users data is displayed here. You can select multiple users and send them an email.',
+                    placement: 'top'
+                }],
+            1: [
+                {
+                    title: "Fishery reservations",
+                    content: 'On this page you can manage fishery reservations.'
+                },
+                {
+                    appendToBody: true,
+                    type: 'element',
+                    selector: '.md-tab.md-active',
+                    title: 'Client module',
+                    content: 'This tab will provide information about fishery reservations (visiting/fishing plans) done by the users.',
+                    placement: 'bottom',
+                    scroll: false
+                },
+                {
+                    appendToBody: true,
+                    type: 'element',
+                    selector: '#refresh',
+                    title: 'Refresh',
+                    content: 'Press refresh to fetch the data',
+                    placement: 'bottom'
+                },
+                {
+                    appendToBody: true,
+                    type: 'element',
+                    selector: '#table2',
+                    title: 'Reservation',
+                    content: 'The table contains fisheries reservations for all users. You can multi-select reservations, send emails or cancel them.',
+                    placement: 'top'
                 }]
         }
     };

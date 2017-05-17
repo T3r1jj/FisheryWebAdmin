@@ -103,7 +103,9 @@ app.controller('UsersController', ['$mdDialog', '$q', '$scope', '$timeout', '$us
                 .ok('Yes')
                 .cancel('No');
             $mdDialog.show(confirm).then(function () {
-                $articleService.reservations.get({id: $scope.selected[0].id}, $scope.loadData, failure);
+                for (var i = 0; i < $scope.selected.length; i++) {
+                    $articleService.cancelReservation.get({id: $scope.selected[i].id}, $scope.loadData, failure);
+                }
             });
         };
 
