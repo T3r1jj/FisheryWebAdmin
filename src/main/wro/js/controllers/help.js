@@ -42,6 +42,15 @@ app.controller('HelpController', ['$scope', '$rootScope', 'joyrideService', '$an
                     scroll: false
                 },
                 {
+                    appendToBody: true,
+                    type: 'element',
+                    selector: '#Users',
+                    title: 'Users management',
+                    content: 'Here you can manage data associated with users (reservations) and send e-mails.',
+                    placement: 'bottom',
+                    scroll: false
+                },
+                {
                     type: 'element',
                     selector: '#services-status',
                     title: 'Service status',

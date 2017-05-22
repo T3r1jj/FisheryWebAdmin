@@ -11,7 +11,7 @@ app.controller('ManageFishController', ['$mdDialog', '$fishService', '$scope', '
         $scope.fish = manageService.getFish();
         $scope.refresh = refresh;
         if ($scope.fish.fromKnowledgeBase) {
-            $scope.fish.protection = {};
+            $scope.fish.fishProtection = {};
             $scope.info = {
                 fish: {description: "Fetching fish info...", hide: false, refresh: false},
                 images: {description: "Fetching images...", hide: false, refresh: false},
@@ -53,7 +53,9 @@ app.controller('ManageFishController', ['$mdDialog', '$fishService', '$scope', '
 
         function onFishImagesFetchSuccess(fishImages) {
             if (fishImages.length > 0) {
-                $scope.fish.imgAuthor = fishImages[0].author;
+                var parser = new DOMParser();
+                var link = parser.parseFromString(fishImages[0].author, 'text/html').body;
+                $scope.fish.imgAuthor = link.innerText || link.textContent;
                 $scope.fish.img = fishImages[0].url;
             }
             $scope.info.images.hide = true;
@@ -68,11 +70,11 @@ app.controller('ManageFishController', ['$mdDialog', '$fishService', '$scope', '
         }
 
         function onFishProtectionFetchSuccess(fishProtection) {
-            $scope.fish.protection.assessment = fishProtection.assessment;
-            $scope.fish.protection.conservation = fishProtection.conservation;
-            $scope.fish.protection.copyright = fishProtection.copyright;
-            $scope.fish.protection.status = fishProtection.status;
-            $scope.fish.protection.useAndTrade = fishProtection.userStats;
+            $scope.fish.fishProtection.assessment = fishProtection.assessment;
+            $scope.fish.fishProtection.conservation = fishProtection.conservation;
+            $scope.fish.fishProtection.copyright = fishProtection.copyright;
+            $scope.fish.fishProtection.status = fishProtection.status;
+            $scope.fish.fishProtection.useAndTrade = fishProtection.userStats;
             $scope.info.protection.hide = true;
         }
 

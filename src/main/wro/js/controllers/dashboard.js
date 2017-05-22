@@ -13,7 +13,7 @@ app.controller('DashboardController', ['$scope', '$articleService', '$fishServic
         };
         $scope.userStats = {
             admin: {name: "Admin accounts", value: 0},
-            user: {name: "User accounts", value: 0}
+            user: {name: "Active users", value: 0}
         };
 
         $articleService.articles.query().$promise.then(function (articles) {

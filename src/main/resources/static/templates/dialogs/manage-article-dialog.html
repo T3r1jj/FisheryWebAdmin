@@ -19,10 +19,10 @@
             </div>
             <div layout="row" class="input-row" style="align-items: center" layout="center">
                 <label for="manage-image" class="leftCenter">Associated image: </label>
-                <input id="manage-image" name="image" class="rightCenter" ng-model="selected.article.image">
+                <input id="manage-image" name="image" class="rightCenter" ng-model="selected.article.imgUrl">
             </div>
             <div layout="row" class="input-row" style="align-items: center; margin: auto" layout="center">
-                <img ng-src="{{selected.article.image}}" ng-hide="!selected.article.image"/>
+                <img ng-src="{{selected.article.imgUrl}}" ng-hide="!selected.article.imgUrl"/>
             </div>
             <br/>
             <div layout="row" class="input-row">

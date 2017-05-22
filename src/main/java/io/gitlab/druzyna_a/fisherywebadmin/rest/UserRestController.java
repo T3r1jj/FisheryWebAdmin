@@ -1,11 +1,13 @@
 package io.gitlab.druzyna_a.fisherywebadmin.rest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -18,15 +20,17 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by Damian Terlecki on 06.05.17.
  */
 @RestController
 public class UserRestController {
+
+    private static final String RESERVATIONS_BASE_URL = "https://druzyna-a-crud.herokuapp.com/reservation";
+    private static final String FISHERY_BASE_URL = "https://druzyna-a-crud.herokuapp.com/fishery";
+
     @Autowired
     private JavaMailSender mailSender;
 
@@ -86,27 +90,72 @@ public class UserRestController {
 
     @RequestMapping(path = "/api/users/count")
     public @ResponseBody
-    String getUsersCount() {
-        String result = "\"over 9000\"";
-        RestTemplate restTemplate = new RestTemplate();
-//        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
-        return "{\"count\": " + result + "}";
+    String getUsersCount() throws JSONException {
+        JSONArray activeUsers = getActiveUsers();
+        return "{\"count\": " + activeUsers.length() + "}";
     }
 
     @RequestMapping(path = "/api/users")
     public @ResponseBody
-    String getUsers() {
+    String getUsers() throws JSONException {
+        JSONArray activeUsers = getActiveUsers();
+        return activeUsers.toString();
+    }
+
+    private JSONArray getActiveUsers() throws JSONException {
         RestTemplate restTemplate = new RestTemplate();
-//        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
-        return "[{\"name\": \"string\", \"email\": \"testmail\"}]";
+        String subscriptionsJson = restTemplate.getForObject(FISHERY_BASE_URL + "/list", String.class);
+        JSONArray subscriptions = new JSONArray(subscriptionsJson);
+        String  reservationsJson = restTemplate.getForObject(RESERVATIONS_BASE_URL + "/list", String.class);
+        JSONArray reservations = new JSONArray(reservationsJson);
+        Set<String> users = new HashSet<>();
+        for (int i = 0; i < subscriptions.length(); i++) {
+            JSONObject subscription = subscriptions.getJSONObject(i);
+            JSONArray emails = subscription.getJSONArray("subscribers");
+            for (int j = 0; j < emails.length(); j++) {
+                users.add(emails.getString(j));
+            }
+        }
+        for (int i = 0; i < reservations.length(); i++) {
+            JSONObject reservation = reservations.getJSONObject(i);
+            users.add(reservation.getString("userEmail"));
+        }
+        JSONArray results = new JSONArray();
+        for (String user : users) {
+            JSONObject object = new JSONObject();
+            object.put("name", user.contains("@") ? user.split("@")[0] : "");
+            object.put("email", user);
+            results.put(object);
+        }
+        return results;
     }
 
     @RequestMapping(path = "/api/reservations")
     public @ResponseBody
-    String getReservations() {
+    String getReservations() throws JSONException {
         RestTemplate restTemplate = new RestTemplate();
-//        JSONObject[] users = restTemplate.getForObject("IDK", JSONObject[].class);
-        return "[{\"name\": \"string\", \"user\": \"an user\", \"email\": \"movierental.terlecki@gmail.com\"}]";
+        String  reservationsJson = restTemplate.getForObject(RESERVATIONS_BASE_URL + "/list", String.class);
+        JSONArray reservations = new JSONArray(reservationsJson);
+        String fisheriesJson = restTemplate.getForObject(FISHERY_BASE_URL + "/list", String.class);
+        JSONArray fisheries = new JSONArray(fisheriesJson);
+        for (int i = 0; i < reservations.length(); i++) {
+            JSONObject reservation = reservations.getJSONObject(i);
+            String userEmail = reservation.getString("userEmail");
+            reservation.put("email", userEmail);
+            reservation.put("user", userEmail.contains("@") ? userEmail.split("@")[0] : "");
+            reservation.remove("userEmail");
+            for (int j = 0; j < fisheries.length(); j++) {
+                JSONObject fishery = fisheries.getJSONObject(j);
+                if (fishery.getInt("id") == reservation.getInt("fisheryId")) {
+                    reservation.put("name", fishery.getString("name"));
+                    break;
+                }
+            }
+            if (reservation.optString("name").isEmpty()) {
+                reservation.put("name", "EMPTY OR REMOVED FISHERY");
+            }
+        }
+        return reservations.toString();
     }
 
     @RequestMapping(path = "/api/reservations/delete")
@@ -115,8 +164,7 @@ public class UserRestController {
         Map<String, String> args = new HashMap<>();
         args.put("id", String.valueOf(id));
         RestTemplate restTemplate = new RestTemplate();
-        return "true";
-//        return restTemplate.exchange("/{id}", HttpMethod.DELETE, null, String.class, args).getBody();
+        return restTemplate.exchange("http://andrzej1993-001-site1.itempurl.com/Api/Users/RemoveReservation?reservationId={id}", HttpMethod.DELETE, null, String.class, args).getBody();
     }
 
     @RequestMapping(path = "/api/emails/add")

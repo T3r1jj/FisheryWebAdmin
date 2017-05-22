@@ -104,7 +104,7 @@ app.controller('UsersController', ['$mdDialog', '$q', '$scope', '$timeout', '$us
                 .cancel('No');
             $mdDialog.show(confirm).then(function () {
                 for (var i = 0; i < $scope.selected.length; i++) {
-                    $articleService.cancelReservation.get({id: $scope.selected[i].id}, $scope.loadData, failure);
+                    $userService.cancelReservation.get({id: $scope.selected[i].id}, $scope.loadData, failure);
                 }
             });
         };
@@ -116,6 +116,9 @@ app.controller('UsersController', ['$mdDialog', '$q', '$scope', '$timeout', '$us
 
         function reservationsRequestSuccess(reservations) {
             $scope.reservations = reservations;
+            for (var i = 0; i < $scope.reservations.length; i++) {
+                $scope.reservations[i].formattedDate = new Date($scope.reservations[i].reservationDate).toLocaleString();
+            }
         }
 
         function usersRequestSuccess(users) {

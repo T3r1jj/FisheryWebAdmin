@@ -61,6 +61,10 @@ app.controller('ManageArticleController', ['$mdDialog', '$articleService', '$sco
         $scope.articles = manageService.getArticles();
         $scope.selected = {};
         $scope.selected.article = ($scope.articles != null && $scope.articles.length !== 0 ? $scope.articles[0] : {});
+        if ($scope.selected.article.image) {
+            $scope.selected.article.imgUrl = $scope.selected.article.image;
+            delete $scope.selected.article.image;
+        }
 
         function success(article) {
             $mdDialog.hide(article);
@@ -86,7 +90,6 @@ app.controller('ManageArticleController', ['$mdDialog', '$articleService', '$sco
                     delete article.$$mdSelectId;
                     delete article.id;
                     delete article.empty;
-                    delete article.image;
                     $articleService.addArticle.save(article, success, failure);
                 }
             }

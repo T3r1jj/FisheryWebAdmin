@@ -148,6 +148,7 @@
                                         <th md-column md-order-by="name"><span>Fishery</span></th>
                                         <th md-column md-order-by="user"><span>User name</span></th>
                                         <th md-column md-order-by="email"><span>Email</span></th>
+                                        <th md-column md-order-by="formattedDate"><span>Date</span></th>
                                     </tr>
                                     </thead>
                                     <tbody md-body>
@@ -157,6 +158,7 @@
                                         <td md-cell ng-bind="reservation.name"></td>
                                         <td md-cell ng-bind="reservation.user"></td>
                                         <td md-cell ng-bind="reservation.email"></td>
+                                        <td md-cell ng-bind="reservation.formattedDate"></td>
                                     </tr>
                                     </tbody>
                                 </table>
