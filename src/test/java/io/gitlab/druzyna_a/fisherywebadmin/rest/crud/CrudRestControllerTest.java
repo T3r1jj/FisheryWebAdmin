@@ -25,21 +25,21 @@ public class CrudRestControllerTest {
 
     @Test
     public void getAllArticles() {
-        String articles = articleController.getAll();
+        String articles = articleController.findAll();
         Assert.assertTrue(articles.contains("["));
         Assert.assertTrue(articles.contains("]"));
     }
 
     @Test
     public void getAllFishes() {
-        String fishes = fishController.getAll();
+        String fishes = fishController.findAll();
         Assert.assertTrue(fishes.contains("["));
         Assert.assertTrue(fishes.contains("]"));
     }
 
     @Test
     public void getAllFisheries() {
-        String fisheries = fisheryController.getAll();
+        String fisheries = fisheryController.findAll();
         Assert.assertTrue(fisheries.contains("["));
         Assert.assertTrue(fisheries.contains("]"));
     }

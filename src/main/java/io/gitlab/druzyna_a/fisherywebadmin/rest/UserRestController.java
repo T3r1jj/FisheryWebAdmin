@@ -5,12 +5,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.core.Authentication;
@@ -28,12 +24,18 @@ import java.util.*;
 @RestController
 public class UserRestController {
 
-    private static final String RESERVATIONS_BASE_URL = "https://druzyna-a-crud.herokuapp.com/reservation";
-    private static final String FISHERY_BASE_URL = "https://druzyna-a-crud.herokuapp.com/fishery";
+    private static final String RESERVATIONS_RESOURCE = "/reservation";
+    private static final String FISHERY_RESOURCE = "/fishery";
+    private static final String USERS_RESOURCE = "/Api/Users";
 
     @Autowired
     private JavaMailSender mailSender;
-
+    @Value("${service.crud}")
+    protected String crudRootUrl;
+    @Value("${service.client}")
+    protected String clientRootUrl;
+    @Value("${email.sender}")
+    protected String emailSender;
     @Value("${login.enable}")
     private boolean enableLogin;
 
@@ -104,9 +106,9 @@ public class UserRestController {
 
     private JSONArray getActiveUsers() throws JSONException {
         RestTemplate restTemplate = new RestTemplate();
-        String subscriptionsJson = restTemplate.getForObject(FISHERY_BASE_URL + "/list", String.class);
+        String subscriptionsJson = restTemplate.getForObject(crudRootUrl + FISHERY_RESOURCE + "/list", String.class);
         JSONArray subscriptions = new JSONArray(subscriptionsJson);
-        String  reservationsJson = restTemplate.getForObject(RESERVATIONS_BASE_URL + "/list", String.class);
+        String reservationsJson = restTemplate.getForObject(crudRootUrl + RESERVATIONS_RESOURCE + "/list", String.class);
         JSONArray reservations = new JSONArray(reservationsJson);
         Set<String> users = new HashSet<>();
         for (int i = 0; i < subscriptions.length(); i++) {
@@ -134,9 +136,9 @@ public class UserRestController {
     public @ResponseBody
     String getReservations() throws JSONException {
         RestTemplate restTemplate = new RestTemplate();
-        String  reservationsJson = restTemplate.getForObject(RESERVATIONS_BASE_URL + "/list", String.class);
+        String reservationsJson = restTemplate.getForObject(crudRootUrl + RESERVATIONS_RESOURCE + "/list", String.class);
         JSONArray reservations = new JSONArray(reservationsJson);
-        String fisheriesJson = restTemplate.getForObject(FISHERY_BASE_URL + "/list", String.class);
+        String fisheriesJson = restTemplate.getForObject(crudRootUrl + FISHERY_RESOURCE + "/list", String.class);
         JSONArray fisheries = new JSONArray(fisheriesJson);
         for (int i = 0; i < reservations.length(); i++) {
             JSONObject reservation = reservations.getJSONObject(i);
@@ -164,7 +166,7 @@ public class UserRestController {
         Map<String, String> args = new HashMap<>();
         args.put("id", String.valueOf(id));
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange("http://andrzej1993-001-site1.itempurl.com/Api/Users/RemoveReservation?reservationId={id}", HttpMethod.DELETE, null, String.class, args).getBody();
+        return restTemplate.exchange(clientRootUrl + USERS_RESOURCE + "/RemoveReservation?reservationId={id}", HttpMethod.DELETE, null, String.class, args).getBody();
     }
 
     @RequestMapping(path = "/api/emails/add")
@@ -173,7 +175,7 @@ public class UserRestController {
         JSONObject email = new JSONObject(emailJson);
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom("movierental.terlecki@gmail.com");
+            messageHelper.setFrom(emailSender);
             messageHelper.setTo(email.getString("email"));
             messageHelper.setSubject(email.getString("title"));
             messageHelper.setText(email.getString("body"), true);

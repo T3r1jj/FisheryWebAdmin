@@ -21,7 +21,9 @@ import java.util.logging.Logger;
 @RestController
 public class KnowledgeBaseRestController {
 
-    private static final String BASE_URL = "https://fishery-knowledge-base.herokuapp.com/article";
+    private static final String ARTICLE_RESOURCE = "/article";
+    @Value("${service.knowledge_base}")
+    protected String knowledgeBaseRootUrl;
     @Value("${io.gitlab.druzyna_a.knowledgebase.totp_interval}")
     private int totpInterval;
     @Value("${io.gitlab.druzyna_a.knowledgebase.totp_key}")
@@ -37,7 +39,7 @@ public class KnowledgeBaseRestController {
         Map<String, String> args = new HashMap<>();
         RestTemplate restTemplate = new RestTemplate();
         args.put("token", generateToken());
-        return restTemplate.getForObject(BASE_URL + "?token={token}", String.class, args);
+        return restTemplate.getForObject(knowledgeBaseRootUrl + ARTICLE_RESOURCE + "?token={token}", String.class, args);
     }
 
     @RequestMapping(value = "/api/articlesRequests/add", method = RequestMethod.GET)
@@ -52,7 +54,7 @@ public class KnowledgeBaseRestController {
         args.put("tagsCount", String.valueOf(tagsCount));
         args.put("quick", String.valueOf(quick));
         args.put("token", generateToken());
-        restTemplate.postForObject(BASE_URL + "/request?token={token}&tags={tags}&requiredTagsCount={tagsCount}&quick={quick}", entity, String.class, args);
+        restTemplate.postForObject(knowledgeBaseRootUrl + ARTICLE_RESOURCE + "/request?token={token}&tags={tags}&requiredTagsCount={tagsCount}&quick={quick}", entity, String.class, args);
         return "true";
     }
 
@@ -63,7 +65,7 @@ public class KnowledgeBaseRestController {
         RestTemplate restTemplate = new RestTemplate();
         args.put("id", id);
         args.put("token", generateToken());
-        return restTemplate.getForObject(BASE_URL + "/{id}?token={token}", String.class, args);
+        return restTemplate.getForObject(knowledgeBaseRootUrl + ARTICLE_RESOURCE + "/{id}?token={token}", String.class, args);
     }
 
     private String generateToken() {

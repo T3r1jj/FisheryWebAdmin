@@ -15,6 +15,14 @@ public class StatusRestController {
 
     private static final String MAPPING_BASE_URL = "/api/status";
 
+    @Value("${service.crud}")
+    protected String crudRootUrl;
+    @Value("${service.knowledge_base}")
+    protected String knowledgeBaseRootUrl;
+    @Value("${service.client}")
+    protected String clientRootUrl;
+    @Value("${service.user}")
+    protected String userRootUrl;
     @Value("${build.version}")
     private String buildVersion;
 
@@ -22,7 +30,7 @@ public class StatusRestController {
     public @ResponseBody
     String isCrudUp() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("https://druzyna-a-crud.herokuapp.com/swagger-ui.html", String.class);
+        restTemplate.getForObject(crudRootUrl + "/swagger-ui.html", String.class);
         return "{\"status\": \"up\"}";
     }
 
@@ -30,7 +38,7 @@ public class StatusRestController {
     public @ResponseBody
     String isClientUp() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://andrzej1993-001-site1.itempurl.com/swagger/ui/index", String.class);
+        restTemplate.getForObject(clientRootUrl + "/swagger/ui/index", String.class);
         return "{\"status\": \"up\"}";
     }
 
@@ -38,14 +46,16 @@ public class StatusRestController {
     public @ResponseBody
     String isKnowledgeBaseUp() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("https://fishery-knowledge-base.herokuapp.com", String.class);
+        restTemplate.getForObject(knowledgeBaseRootUrl, String.class);
         return "{\"status\": \"up\"}";
     }
 
     @RequestMapping(value = MAPPING_BASE_URL + "/user", method = RequestMethod.GET)
     public @ResponseBody
     String isUserUp() {
-        return "{\"status\": \"down\"}";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getForObject(userRootUrl, String.class);
+        return "{\"status\": \"up\"}";
     }
 
     @RequestMapping(value = MAPPING_BASE_URL, method = RequestMethod.GET)

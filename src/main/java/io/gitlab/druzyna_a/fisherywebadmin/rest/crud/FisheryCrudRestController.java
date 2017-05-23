@@ -16,28 +16,28 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/fisheries")
-public class FisheryCrudRestController implements CrudRestApi {
+public class FisheryCrudRestController extends CrudRestController {
 
-    private static final String FISH_BASE_URL = "https://druzyna-a-crud.herokuapp.com/fishery";
+    private static final String FISHERY_RESOURCE = "/fishery";
 
     @Override
-    public String getAll() {
+    public String findAll() {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(FISH_BASE_URL + "/list", String.class);
+        return restTemplate.getForObject(crudRootUrl + FISHERY_RESOURCE + "/list", String.class);
     }
 
     @Override
     public String add(@RequestBody String data) {
         HttpEntity<String> entity = prepareJsonEntity(data);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(FISH_BASE_URL + "/create", entity, String.class);
+        return restTemplate.postForObject(crudRootUrl + FISHERY_RESOURCE + "/create", entity, String.class);
     }
 
     @Override
     public String update(@RequestBody String data) {
         HttpEntity<String> entity = prepareJsonEntity(data);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(FISH_BASE_URL + "/update", HttpMethod.PUT, entity, String.class).getBody();
+        return restTemplate.exchange(crudRootUrl + FISHERY_RESOURCE + "/update", HttpMethod.PUT, entity, String.class).getBody();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class FisheryCrudRestController implements CrudRestApi {
         Map<String, String> args = new HashMap<>();
         args.put("id", String.valueOf(id));
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(FISH_BASE_URL + "/{id}", HttpMethod.DELETE, null, String.class, args).getBody();
+        return restTemplate.exchange(crudRootUrl + FISHERY_RESOURCE + "/{id}", HttpMethod.DELETE, null, String.class, args).getBody();
     }
 
 }

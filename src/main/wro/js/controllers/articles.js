@@ -17,9 +17,9 @@ app.controller('AddArticlesRequestController', ['$mdDialog', '$articleService', 
         $scope.articlesRequest = {quick: true, tagsCount: 1, tags: []};
 
         function querySearch(query) {
-            return query ? self.tags.filter(function (el) {
+            return query ? self.tags ? self.tags.filter(function (el) {
                 return el.toLowerCase().indexOf(query.toLowerCase()) > -1;
-            }) : [];
+            }) : [] : [];
         }
 
         function transformChip(chip) {
@@ -106,7 +106,7 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
 
         $scope.$watch('data.selectedIndex', function (now, then, scope) {
             $scope.selected = [];
-            if ($scope.data.selectedIndex === 1 && manageService.getTags == null) {
+            if ($scope.data.selectedIndex === 1 && manageService.getTags() == null) {
                 manageService.setTags([]);
                 $articleService.getTags.query(tagsSuccessFetch, failure);
             }

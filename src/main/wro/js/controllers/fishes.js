@@ -207,7 +207,7 @@ app.controller('FishesController', ['$mdDialog', '$q', '$scope', '$timeout', '$f
 
         function openManageDialog(event) {
             var fish = (($scope.selected.length === 0) ? {} : JSON.parse(JSON.stringify($scope.selected[0])));
-            if ($scope.data.selectedIndex === 1) {
+            if ($scope.data.selectedIndex === 1 && $scope.selected.length !== 0) {
                 fish.fromKnowledgeBase = true;
             }
             if (manageService.getOperation() !== "Update" && fish.id != null) {
