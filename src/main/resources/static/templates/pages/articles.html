@@ -81,7 +81,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="article"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="article in articles | filter: query.filter | orderBy: query.order.articles | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="article in articles | filter: query.filter | orderBy: query.order.articles | limitTo: query.limit : (query.page1 -1) * query.limit">
                                         <td md-cell ng-bind="article.title"></td>
                                         <td md-cell ng-bind="article.author" style="word-break: break-all"></td>
                                     </tr>
@@ -90,7 +90,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page1"
                                                  md-total="{{articles.length}}"
                                                  md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
@@ -165,7 +165,7 @@
                                     <tr md-row md-select="articlesRequest"
                                         ng-click="articlesRequest.scraped ? openRequest(articlesRequest.id) : null"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="articlesRequest in articlesRequests | filter: query.filter | orderBy: query.order.articlesRequests | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="articlesRequest in articlesRequests | filter: query.filter | orderBy: query.order.articlesRequests | limitTo: query.limit : (query.page2 -1) * query.limit">
                                         <td md-cell ng-bind="articlesRequest.id" style="word-break: break-all"></td>
                                         <td md-cell ng-bind="articlesRequest.formattedTime"></td>
                                         <td md-cell><span
@@ -180,7 +180,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page2"
                                                  md-total="{{articlesRequests.length}}"
                                                  md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>

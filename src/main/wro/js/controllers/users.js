@@ -62,7 +62,8 @@ app.controller('UsersController', ['$mdDialog', '$q', '$scope', '$timeout', '$us
             filter: '',
             order: 'name',
             limit: 10,
-            page: 1
+            page1: 1,
+            page2: 1
         };
 
         $scope.removeFilter = function () {

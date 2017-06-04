@@ -127,7 +127,8 @@ app.controller('ArticlesController', ['$mdDialog', '$q', '$scope', '$timeout', '
             filter: '',
             order: {articles: "title", articlesRequests: '-time'},
             limit: 10,
-            page: 1
+            page1: 1,
+            page2: 1
         };
 
         $scope.removeFilter = function () {

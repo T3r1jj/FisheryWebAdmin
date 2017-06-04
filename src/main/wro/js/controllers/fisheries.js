@@ -114,7 +114,8 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
             filter: '',
             order: 'name',
             limit: 10,
-            page: 1
+            page1: 1,
+            page2: 1
         };
 
         $scope.removeFilter = function () {
@@ -151,6 +152,13 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
                 manageService.setOperation("Add");
             } else {
                 manageService.setOperation("Add managed");
+                if ($scope.selected.length > 1) {
+                    for (var i = 0; i < $scope.selected.length; i++) {
+                        $fisheryService.addFishery.save(JSON.stringify(prepareScrapedFishery($scope.selected[i])), function() {}, failure);
+                    }
+                    $scope.selected = []
+                    return;
+                }
             }
             openManageDialog(event);
         };
@@ -181,9 +189,7 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
                 lng: 0
             } : JSON.parse(JSON.stringify($scope.selected[0])));
             if (fishery.coordinate != null) {
-                fishery.lat = fishery.coordinate.lat;
-                fishery.lng = fishery.coordinate.lng;
-                delete fishery.coordinate;
+                fishery = prepareScrapedFishery(fishery);
             }
             if (manageService.getOperation() !== "Update" && fishery.id != null) {
                 delete fishery.id;
@@ -205,6 +211,14 @@ app.controller('FisheriesController', ['$mdDialog', '$q', '$scope', '$timeout', 
                     .position('bottom center')
                     .hideDelay(3000)
             );
+        }
+
+        function prepareScrapedFishery(fishery) {
+            fishery = JSON.parse(JSON.stringify(fishery));
+            fishery.lat = fishery.coordinate.lat;
+            fishery.lng = fishery.coordinate.lng;
+            delete fishery.coordinate;
+            return fishery
         }
 
         loadManagedData();

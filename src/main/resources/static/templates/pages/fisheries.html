@@ -88,7 +88,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fishery"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fishery in fisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fishery in fisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page1 -1) * query.limit">
                                         <td md-cell ng-bind="fishery.name"></td>
                                         <td md-cell ng-bind="fishery.lat"></td>
                                         <td md-cell ng-bind="fishery.lng"></td>
@@ -100,7 +100,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page1"
                                                  md-total="{{fisheries.length}}" md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
                         </md-card-content>
@@ -159,7 +159,7 @@
                             </md-toolbar>
 
                             <md-table-container>
-                                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
+                                <table md-table md-row-select="options.rowSelection" multiple="true"
                                        ng-model="selected" md-progress="knowledgeBasePromise">
                                     <thead ng-if="!options.decapitate" md-head md-order="query.order">
                                     <tr md-row>
@@ -177,7 +177,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fishery"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fishery in scrapedFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fishery in scrapedFisheries | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page2 -1) * query.limit">
                                         <td md-cell ng-bind="fishery.name"></td>
                                         <td md-cell ng-bind="fishery.coordinate.lat"></td>
                                         <td md-cell ng-bind="fishery.coordinate.lng"></td>
@@ -189,7 +189,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page2"
                                                  md-total="{{scrapedFisheries.length}}"
                                                  md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>

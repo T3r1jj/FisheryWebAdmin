@@ -1,6 +1,6 @@
 # ![asd](src/main/resources/static/assets/favicon-32x32.png) FisheryWebAdmin 
 
-[![v1.2.1 build status](https://gitlab.com/Druzyna-A/FisheryWebAdmin/badges/v1.2.1/build.svg)](https://gitlab.com/Druzyna-A/FisheryWebAdmin/commits/v1.2.1) - v1.2.1
+[![v1.2.2 build status](https://gitlab.com/Druzyna-A/FisheryWebAdmin/badges/v1.2.2/build.svg)](https://gitlab.com/Druzyna-A/FisheryWebAdmin/commits/v1.2.2) - v1.2.2
 
 FisheryWebAdmin is a web app written in Java that provides user interface for admin access to Fishery project services. The app is based on Spring Boot + AngularJS + Material Design.
 

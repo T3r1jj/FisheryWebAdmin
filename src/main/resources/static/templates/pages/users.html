@@ -81,7 +81,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="user"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="user in users | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="user in users | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page1 -1) * query.limit">
                                         <td md-cell ng-bind="user.name"></td>
                                         <td md-cell ng-bind="user.email" style="word-break: break-all"></td>
                                     </tr>
@@ -90,7 +90,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page1"
                                                  md-total="{{users.length}}"
                                                  md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
@@ -154,7 +154,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="reservation"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="reservation in reservations | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="reservation in reservations | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page2 -1) * query.limit">
                                         <td md-cell ng-bind="reservation.name"></td>
                                         <td md-cell ng-bind="reservation.user"></td>
                                         <td md-cell ng-bind="reservation.email"></td>
@@ -165,7 +165,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page2"
                                                  md-total="{{reservations.length}}"
                                                  md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>

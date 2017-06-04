@@ -88,7 +88,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fish"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fish in fishes | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fish in fishes | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page1 -1) * query.limit">
                                         <td md-cell ng-bind="fish.name"></td>
                                         <td md-cell ng-bind="fish.commonName"></td>
                                         <td md-cell ng-bind="fish.localName"></td>
@@ -101,7 +101,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page1"
                                                  md-total="{{fishes.length}}" md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
                         </md-card-content>
@@ -174,7 +174,7 @@
                                     <tbody md-body>
                                     <tr md-row md-select="fish"
                                         md-auto-select="options.autoSelect"
-                                        ng-repeat="fish in fishNames | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="fish in fishNames | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page2 -1) * query.limit">
                                         <td md-cell ng-bind="fish.name"></td>
                                         <td md-cell ng-bind="fish.commonName"></td>
                                         <td md-cell ng-bind="fish.localName"></td>
@@ -184,7 +184,7 @@
                             </md-table-container>
 
                             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions"
-                                                 md-page="query.page"
+                                                 md-page="query.page2"
                                                  md-total="{{fishNames.length}}" md-page-select="options.pageSelect"
                                                  md-boundary-links="options.boundaryLinks"></md-table-pagination>
                         </md-card-content>
