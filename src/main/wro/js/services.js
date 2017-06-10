@@ -1,6 +1,7 @@
 /**
  * Created by Damian Terlecki on 05.05.17.
  */
+app.FISHERY_KNOWLEDGE_BASE_URL = 'https://fishery-knowledge-base.herokuapp.com';
 app.service('manageService', function () {
     var fishery = null;
     var fish = null;
@@ -93,7 +94,7 @@ app.factory('$articleService', ['$resource', function ($resource) {
         updateArticle: $resource('/api/articles/update'),
         deleteArticle: $resource('/api/articles/delete'),
         addArticlesRequest: $resource('/api/articlesRequests/add'),
-        getTags: $resource('https://fishery-knowledge-base.herokuapp.com/article/tags/All')
+        getTags: $resource(app.FISHERY_KNOWLEDGE_BASE_URL + '/article/tags/All')
     };
 }]);
 
@@ -102,10 +103,10 @@ app.factory('$fishService', ['$resource', function ($resource) {
     'use strict';
     return {
         fishes: $resource('/api/fishes'),
-        fish: $resource('https://fishery-knowledge-base.herokuapp.com/fish/:name', {id: "@name"}),
-        fishNames: $resource('https://fishery-knowledge-base.herokuapp.com/fish'),
-        fishProtection: $resource('https://fishery-knowledge-base.herokuapp.com/fish/protection'),
-        fishImages: $resource('https://fishery-knowledge-base.herokuapp.com/fish/images'),
+        fish: $resource(app.FISHERY_KNOWLEDGE_BASE_URL + '/fish/:name', {id: "@name"}),
+        fishNames: $resource(app.FISHERY_KNOWLEDGE_BASE_URL + '/fish'),
+        fishProtection: $resource(app.FISHERY_KNOWLEDGE_BASE_URL + '/fish/protection'),
+        fishImages: $resource(app.FISHERY_KNOWLEDGE_BASE_URL + '/fish/images'),
         addFish: $resource('/api/fishes/add'),
         updateFish: $resource('/api/fishes/update'),
         deleteFish: $resource('/api/fishes/delete')
@@ -115,7 +116,7 @@ app.factory('$fishService', ['$resource', function ($resource) {
 app.factory('$fisheryService', ['$resource', function ($resource) {
     'use strict';
     return {
-        scrapedFisheries: $resource('https://fishery-knowledge-base.herokuapp.com/fishery'),
+        scrapedFisheries: $resource(app.FISHERY_KNOWLEDGE_BASE_URL + '/fishery'),
         fisheries: $resource('/api/fisheries'),
         addFishery: $resource('/api/fisheries/add'),
         deleteFishery: $resource('/api/fisheries/delete'),

@@ -21,7 +21,7 @@ app.controller('AboutController', ['$scope', '$http', function ($scope, $http) {
             name: "Fishery knowledge base web service",
             author: "Damian Terlecki",
             license: "https://fishery-knowledge-base.herokuapp.com/license.html",
-            link: "https://fishery-knowledge-base.herokuapp.com"
+            link: "https://github.com/T3r1jj/FisheryKnowledgeBase"
         },
         totp4j: {
             name: "totp4j - an authentication module",

@@ -24,13 +24,13 @@ public class KnowledgeBaseRestController {
     private static final String ARTICLE_RESOURCE = "/article";
     @Value("${service.knowledge_base}")
     protected String knowledgeBaseRootUrl;
-    @Value("${io.gitlab.druzyna_a.knowledgebase.totp_interval}")
+    @Value("${io.gitlab.druzyna_a.fisheryknowledgebase.totp_interval}")
     private int totpInterval;
-    @Value("${io.gitlab.druzyna_a.knowledgebase.totp_key}")
+    @Value("${io.gitlab.druzyna_a.fisheryknowledgebase.totp_key}")
     private String totpKey;
-    @Value("${io.gitlab.druzyna_a.knowledgebase.totp_token_length}")
+    @Value("${io.gitlab.druzyna_a.fisheryknowledgebase.totp_token_length}")
     private int totpTokenLength;
-    @Value("${io.gitlab.druzyna_a.knowledgebase.totp_hmac_algorithm}")
+    @Value("${io.gitlab.druzyna_a.fisheryknowledgebase.totp_hmac_algorithm}")
     private String totpHmacAlgorithm;
 
     @RequestMapping(value = "/api/articlesRequests", method = RequestMethod.GET)
