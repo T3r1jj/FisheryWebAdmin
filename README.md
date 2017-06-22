@@ -1,12 +1,13 @@
 # ![FisheryWebAdmin](src/main/resources/static/assets/favicon-32x32.png) FisheryWebAdmin 
 
-FisheryWebAdmin is a web application written in **Java and JavaScript** (+HTML, CSS, LESS) that provides user interface for admin access to Fishery project services. The app is based on **Spring Boot + AngularJS + Material Design**.
+FisheryWebAdmin is a web application written in **Java and JavaScript** (+HTML, CSS, LESS) that provides user interface for admin access to the **distributed** Fishery project services. The app is based on **Spring Boot + AngularJS + Material Design**.
 
 The admin interface gives access to CRUD web service and allows to integrate-and-edit some data gathered from KnowledgeBase. The connection with the client module provides user management (reservations, e-mailing). It also displays status of the user apps.   
 
 FisheryWebAdmin was hosted at Heroku. It requires distributed CRUD, KnowledgeBase and client modules to be up and running to provide full functionality. 
 
-### Gallery [[more]](https://t3r1jj.github.io/FisheryProject)
+### Gallery [[more]](https://t3r1jj.github.io/DistributedFisheryProject)
+![fisherywebadmin](https://user-images.githubusercontent.com/20327242/27429488-8b1d33bc-5745-11e7-9caa-a5faf5c02de2.png)
 
 ### Main features
 Data management:
